@@ -9,16 +9,23 @@ from kivy.uix.tabbedpanel import TabbedPanel
 Builder.load_string("""
 
 <Test>:
+    background_color: (2.9, 2.9, 2.9, 1)
     size_hint: 1, .23
     pos_hint: {'center_x': .5, 'center_y': .89}
     tab_height: 25
     tab_width: 50
     do_default_tab: False
+    
+    canvas:
+        Color:
+            rgba: (2, 2, 2, 1)
+        Rectangle:
+            pos: (10, 7)
+            size: (780, 450)
 
     TabbedPanelItem:        
         text: 'Home'
         StripLayout:
-            background_color: (1, 1, 1, 1)
             Label:
                 text: 'Colors'
                 pos: (65, 435)
