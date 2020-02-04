@@ -1,6 +1,7 @@
 import kivy
 
 from kivy.app import App
+from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
@@ -18,7 +19,7 @@ Builder.load_string("""
     TabbedPanelItem:        
         text: 'Home'
         StripLayout:
-            background_color: (1, 1, 1, 1)
+            background_color: (15, 191, 250, 1)
             Label:
                 text: 'Colors'
                 pos: (65, 435)
@@ -96,11 +97,19 @@ Builder.load_string("""
                 size: (25, 25)
                 pos: (400, 530)
                 background_color: (1, 1, 1, 1)
+                Image:
+                    source: 'resources/pencil.png'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
             Button:
                 text: ''
                 size: (25, 25)
                 pos: (435, 530)
                 background_color: (1, 1, 1, 1)
+                Image:
+                    source: 'resources/bucket.png'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
             Button:
                 text: ''
                 size: (25, 25)
@@ -116,6 +125,10 @@ Builder.load_string("""
                 size: (25, 25)
                 pos: (470, 530)
                 background_color: (1, 1, 1, 1)
+                Image:
+                    source: 'resources/eraser.png'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
             Button:
                 text: ''
                 size: (25, 25)
