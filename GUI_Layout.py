@@ -10,7 +10,7 @@ from kivy.uix.tabbedpanel import TabbedPanel
 Builder.load_string("""
 
 <Test>:
-    background_color: (2.9, 2.9, 2.9, 1)
+    background_color: (4, 4, 4, 1)
     size_hint: 1, .23
     pos_hint: {'center_x': .5, 'center_y': .89}
     tab_height: 25
@@ -29,6 +29,7 @@ Builder.load_string("""
         StripLayout:
             background_color: (0, 0, 1, .5)
             Label:
+                color: (0, 0, 0, 1)
                 text: 'Colors'
                 pos: (65, 435)
                 font_size: 12
@@ -89,6 +90,7 @@ Builder.load_string("""
                 background_color: (2, 2, 2, 1)
             Label:
                 pos: (203, 445)
+                color: (0, 0, 0, 1)
                 text: 'CurrentColor'
                 font_size: 12
             Button:
@@ -97,14 +99,14 @@ Builder.load_string("""
                 pos: (320, 510)
                 background_color: (1, 2, 2, 1)
             Label:
+                color: (0, 0, 0, 1)
                 pos: (289, 445)
                 text: 'Brush'
-                font_size: 12
+                font_size: 12.5
             Button:
                 text: ''
                 size: (25, 25)
                 pos: (400, 530)
-                background_color: (1, 1, 1, 1)
                 Image:
                     source: 'resources/pencil.png'
                     center_x: self.parent.center_x
@@ -113,7 +115,6 @@ Builder.load_string("""
                 text: ''
                 size: (25, 25)
                 pos: (435, 530)
-                background_color: (1, 1, 1, 1)
                 Image:
                     source: 'resources/bucket.png'
                     center_x: self.parent.center_x
@@ -122,7 +123,6 @@ Builder.load_string("""
                 text: ''
                 size: (25, 25)
                 pos: (400, 495)
-                background_color: (1, 1, 1, 1)
                 Image:
                     source: 'resources/font.png'
                     center_x: self.parent.center_x
@@ -131,7 +131,6 @@ Builder.load_string("""
                 text: ''
                 size: (25, 25)
                 pos: (435, 495)
-                background_color: (1, 1, 1, 1)
                 Image:
                     source: 'resources/dropper.png'
                     center_x: self.parent.center_x
@@ -140,7 +139,6 @@ Builder.load_string("""
                 text: ''
                 size: (25, 25)
                 pos: (470, 530)
-                background_color: (1, 1, 1, 1)
                 Image:
                     source: 'resources/eraser.png'
                     center_x: self.parent.center_x
@@ -149,15 +147,24 @@ Builder.load_string("""
                 text: ''
                 size: (25, 25)
                 pos: (470, 495)
-                background_color: (1, 1, 1, 1)
                 Image:
                     source: 'resources/magnifyinglass.png'
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
             Label:
+                color: (0, 0, 0, 1)
                 pos: (398, 433)
                 text: 'Tools'
                 font_size: 12
+                
+            Button:
+                text: ''
+                size: (23, 23)
+                pos: (120, 575)
+                Image:
+                    source: 'resources/save.png'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
             
     TabbedPanelItem:
         text: 'Edit'
