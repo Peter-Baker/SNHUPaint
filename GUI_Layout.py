@@ -1,189 +1,25 @@
-import kivy
-
+import os
+import kivy.garden.filebrowser
 from kivy.app import App
-from kivy.uix.image import Image
-from kivy.uix.button import Button
-from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.tabbedpanel import TabbedPanel
 
-Builder.load_string("""
-
-<Test>:
-    background_color: (4, 4, 4, 1)
-    size_hint: 1, .23
-    pos_hint: {'center_x': .5, 'center_y': .89}
-    tab_height: 25
-    tab_width: 50
-    do_default_tab: False
-    
-    canvas:
-        Color:
-            rgba: (2, 2, 2, 1)
-        Rectangle:
-            pos: (10, 7)
-            size: (780, 450)
-
-    TabbedPanelItem:        
-        text: 'Home'
-        StripLayout:
-            background_color: (0, 0, 1, .5)
-            Label:
-                color: (0, 0, 0, 1)
-                text: 'Colors'
-                pos: (65, 435)
-                font_size: 12
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (30, 530)
-                background_color: (0, 1, 0, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (65, 530)
-                background_color: (1, 0, 0, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (30, 495)
-                background_color: (0, 0, 1, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (65, 495)
-                background_color: (1, 0.2, 1, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (100, 530)
-                background_color: (1, 1, 1, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (100, 495)
-                background_color: (.75, 0, .25, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (135, 495)
-                background_color: (.2, .3, .5, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (135, 530)
-                background_color: (.4, .4, .4, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (170, 495)
-                background_color: (.1, .2, .3, 1)
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (170, 530)
-                background_color: (0, 0, 0, 1)
-            Button:
-                text: ''
-                size: (40, 40)
-                pos: (220, 510)
-                background_color: (2, 2, 2, 1)
-            Label:
-                pos: (203, 445)
-                color: (0, 0, 0, 1)
-                text: 'CurrentColor'
-                font_size: 12
-            Button:
-                text: ''
-                size: (40, 40)
-                pos: (320, 510)
-                background_color: (1, 2, 2, 1)
-            Label:
-                color: (0, 0, 0, 1)
-                pos: (289, 445)
-                text: 'Brush'
-                font_size: 12.5
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (400, 530)
-                Image:
-                    source: 'resources/pencil.png'
-                    center_x: self.parent.center_x
-                    center_y: self.parent.center_y
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (435, 530)
-                Image:
-                    source: 'resources/bucket.png'
-                    center_x: self.parent.center_x
-                    center_y: self.parent.center_y
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (400, 495)
-                Image:
-                    source: 'resources/font.png'
-                    center_x: self.parent.center_x
-                    center_y: self.parent.center_y
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (435, 495)
-                Image:
-                    source: 'resources/dropper.png'
-                    center_x: self.parent.center_x
-                    center_y: self.parent.center_y
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (470, 530)
-                Image:
-                    source: 'resources/eraser.png'
-                    center_x: self.parent.center_x
-                    center_y: self.parent.center_y
-            Button:
-                text: ''
-                size: (25, 25)
-                pos: (470, 495)
-                Image:
-                    source: 'resources/magnifyinglass.png'
-                    center_x: self.parent.center_x
-                    center_y: self.parent.center_y
-            Label:
-                color: (0, 0, 0, 1)
-                pos: (398, 433)
-                text: 'Tools'
-                font_size: 12
-                
-            Button:
-                text: ''
-                size: (23, 23)
-                pos: (120, 575)
-                Image:
-                    source: 'resources/save.png'
-                    center_x: self.parent.center_x
-                    center_y: self.parent.center_y
-            
-    TabbedPanelItem:
-        text: 'Edit'
-        Label:
-            text: 'Edit tab content will be here'
-""")
-
-class Test(TabbedPanel):
-    pass
-
-class MyWidget(BoxLayout):
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-
-class CanvasApp(App):
+class TestApp(App):
 
     def build(self):
-        return Test()
+        user_path = os.path.join(get_home_directory(), 'Documents')
+        browser = FileBrowser(select_string='Select',
+                              favorites=[(user_path, 'Documents')])
+        browser.bind(on_success=self._fbrowser_success,
+                     on_canceled=self._fbrowser_canceled,
+                     on_submit=self._fbrowser_submit)
+        return browser
 
-CanvasApp().run()
+    def _fbrowser_canceled(self, instance):
+        print('cancelled, Close self.')
+
+    def _fbrowser_success(self, instance):
+        print(instance.selection)
+
+    def _fbrowser_submit(self, instance):
+        print(instance.selection)
+
+TestApp().run()
