@@ -181,7 +181,7 @@ class Test(TabbedPanel):
 
     def on_touch_move(self, touch):
         touch.ud['line'].points += [touch.x, touch.y]
-
+    
 
 class MyWidget(BoxLayout):
 
