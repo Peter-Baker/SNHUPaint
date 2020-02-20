@@ -13,7 +13,6 @@
         pos: (0, 450)
         tab_height: 25
         tab_width: 50
-        tab_pos: 'top_left'
         do_default_tab: False
 
         TabbedPanelItem:
@@ -99,7 +98,7 @@
                     text: ''
                     size: (25, 25)
                     pos: (400, 530)
-                    on_press: root.pencil_button()
+                    on_press: root.pencil()
                     Image:
                         source: 'resources/pencil.png'
                         center_x: self.parent.center_x
@@ -132,6 +131,7 @@
                     text: ''
                     size: (25, 25)
                     pos: (470, 530)
+                    on_press: root.eraser()
                     Image:
                         source: 'resources/eraser.png'
                         center_x: self.parent.center_x
