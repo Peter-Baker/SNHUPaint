@@ -6,6 +6,8 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.widget import Widget
 from kivy.properties import ListProperty
 from kivy.graphics import Color, Ellipse, Line
+from kivy_garden.filebrowser import FileBrowser
+from kivy.uix.popup import Popup
 
 # Create a global variable that will hold the color of the pencil
 global paint_color
@@ -23,6 +25,29 @@ class MyMain(Widget):
         paint_color = [0, 0, 0, 1]  # Set pencil color to black
 
 
+        browser = FileBrowser(select_string='Select', cancel_state='down')
+        browser.bind(on_success=self._fbrowser_success,
+                     on_canceled=self._fbrowser_canceled,
+                     on_submit=self._fbrowser_submit)
+
+        self.popup = Popup(
+            title=short_text,
+            content=browser, size_hint=(0.9, 0.9),
+            auto_dismiss=False
+        )
+        self.popup.open()
+
+    def _fbrowser_canceled(self, instance):
+        print('cancelled, Close self.')
+        self.popup.dismiss()
+
+    def _fbrowser_success(self, instance):
+        print(instance.selection)
+        self.popup.dismiss()
+
+    def _fbrowser_submit(self, instance):
+        print(instance.selection)
+        self.popup.open()
 class Background(Widget):
     global paint_color
     paint_color = [0, 0, 0, 1]
