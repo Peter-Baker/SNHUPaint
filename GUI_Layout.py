@@ -41,9 +41,26 @@ class Background(Widget):
                 touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
 
     def on_touch_move(self, touch):
+        if not self.collide_point(*touch.pos):
+            touch.ud['line'].points += [touch.x, touch.y]
+
+class Test(TabbedPanel):
+    def pencil_button(self):
+        Color(255, 0, 0)
         with self.canvas:
             if not self.collide_point(*touch.pos):
                 touch.ud['line'].points += [touch.x, touch.y]
+
+    def open_file_btn_pressed(self, *args):
+
+        self._fbrowser = FileBrowser(select_string='Open')
+        self._fbrowser.bind(on_success=self._file_load,
+                            on_canceled=self._cancel_popup)
+
+        self._popup = Popup(title='Open File', content=self._fbrowser,
+                            size_hint=(0.9, 0.9), auto_dismiss=False)
+
+        self._popup.open()
 
 
 class Test(TabbedPanel):  # Creates tab panel, all of it is done in kivy that is why we pass
