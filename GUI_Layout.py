@@ -34,29 +34,35 @@ class UploadPopup(Popup):
     def _fbrowser_submit(self, instance):
         print(instance.selection)
         self.popup.open()
+class Background(Widget):
 
-class Test(TabbedPanel):
     def on_touch_down(self, touch):
         with self.canvas:
-            Color(0, 0, 0)
-            touch.ud['line'] = Line(points=(touch.x, touch.y))
+            if not self.collide_point(*touch.pos):
+                Color(249, 0, 0)
+                touch.ud['line'] = Line(points=(touch.x, touch.y))
 
     def on_touch_move(self, touch):
-        touch.ud['line'].points += [touch.x, touch.y]
+        if not self.collide_point(*touch.pos):
+            touch.ud['line'].points += [touch.x, touch.y]
+
 
     def fire_popup(self):
         pops=UploadPopup()
         pops.open()
+class Test(TabbedPanel):
+    def pencil_button(self):
+        Color(255, 0, 0)
 
-class MyWidget(BoxLayout):
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class MyMain(Widget):
+    pass
 
+
+# App will initialize everything that kivy needs
 class CanvasApp(App):
-
     def build(self):
-        return Test()
+        return MyMain()
 
 
 CanvasApp().run()
