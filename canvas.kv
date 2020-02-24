@@ -8,7 +8,7 @@
                 size: (800, 450)
 
     Test:
-        background_color: (4, 4, 4, 1)
+        background_color: (4, 4, 4, 1) #Color of tab
         size: (800, 150)
         pos: (0, 450)
         tab_height: 25
@@ -170,6 +170,22 @@
                         source: 'resources/save.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
+
+                Slider:
+                    id: slider
+                    min: 0
+                    max: 100
+                    value: 30
+                    pos: (240, 425)
+                    cursor_size: (20,20)
+                    step: 1
+                    orientation: 'horizontal'
+
+                Label:
+                    color: (0, 0, 0, 1)
+                    pos: (240, 410)
+                    text: 'Pen Size'
+                    font_size: 12
 
         TabbedPanelItem:
             text: 'Edit'

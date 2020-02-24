@@ -6,6 +6,7 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.widget import Widget
 from kivy.properties import ListProperty
 from kivy.graphics import Color, Ellipse, Line
+from kivy.uix.slider import Slider
 
 # Create a global variable that will hold the color of the pencil
 global paint_color
@@ -41,18 +42,14 @@ class Background(Widget):
                 touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
 
     def on_touch_move(self, touch):
-        if not self.collide_point(*touch.pos):
-            touch.ud['line'].points += [touch.x, touch.y]
-
-class Test(TabbedPanel):
-    def pencil_button(self):
-        Color(255, 0, 0)
         with self.canvas:
             if not self.collide_point(*touch.pos):
                 touch.ud['line'].points += [touch.x, touch.y]
 
-    def open_file_btn_pressed(self, *args):
 
+class Test(TabbedPanel):
+
+    def open_file_btn_pressed(self, *args):
         self._fbrowser = FileBrowser(select_string='Open')
         self._fbrowser.bind(on_success=self._file_load,
                             on_canceled=self._cancel_popup)
