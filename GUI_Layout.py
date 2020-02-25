@@ -12,6 +12,9 @@ from kivy.uix.slider import Slider
 global paint_color
 paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
 
+global rad
+rad = 30
+
 
 class MyMain(Widget):
 
@@ -22,6 +25,10 @@ class MyMain(Widget):
     def pencil(self):  # This method is called when someone clicks on the pencil button
         global paint_color
         paint_color = [0, 0, 0, 1]  # Set pencil color to black
+
+    def slider(self):
+        global rad
+        rad = 30
 
 
 class Background(Widget):
@@ -42,9 +49,9 @@ class Background(Widget):
                 touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
 
     def on_touch_move(self, touch):
-        with self.canvas:
-            if not self.collide_point(*touch.pos):
-                touch.ud['line'].points += [touch.x, touch.y]
+        if "line" not in touch.ud:
+            touch.ud["line"] = Line(points=(touch.x, touch.y))
+        touch.ud["line"].points += [touch.x, touch.y]
 
 
 class Test(TabbedPanel):
