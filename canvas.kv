@@ -8,7 +8,7 @@
                 size: (800, 450)
 
     Test:
-        background_color: (4, 4, 4, 1)
+        background_color: (4, 4, 4, 1) #Color of tab
         size: (800, 150)
         pos: (0, 450)
         tab_height: 25
@@ -85,10 +85,16 @@
                     text: 'CurrentColor'
                     font_size: 12
                 Button:
+                    id: brush_button
                     text: ''
                     size: (40, 40)
                     pos: (320, 510)
                     background_color: (1, 2, 2, 1)
+                    Image:
+                        id: brush_button_image
+                        source: 'resources/pencil.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
                 Label:
                     color: (0, 0, 0, 1)
                     pos: (289, 445)
@@ -99,6 +105,7 @@
                     size: (25, 25)
                     pos: (400, 530)
                     on_press: root.pencil()
+                    on_press: brush_button_image.source = 'resources/pencil.png'
                     Image:
                         source: 'resources/pencil.png'
                         center_x: self.parent.center_x
@@ -107,6 +114,7 @@
                     text: ''
                     size: (25, 25)
                     pos: (435, 530)
+                    on_press: brush_button_image.source = 'resources/bucket.png'
                     Image:
                         source: 'resources/bucket.png'
                         center_x: self.parent.center_x
@@ -115,6 +123,7 @@
                     text: ''
                     size: (25, 25)
                     pos: (400, 495)
+                    on_press: brush_button_image.source = 'resources/font.png'
                     Image:
                         source: 'resources/font.png'
                         center_x: self.parent.center_x
@@ -123,6 +132,7 @@
                     text: ''
                     size: (25, 25)
                     pos: (435, 495)
+                    on_press: brush_button_image.source = 'resources/dropper.png'
                     Image:
                         source: 'resources/dropper.png'
                         center_x: self.parent.center_x
@@ -132,6 +142,7 @@
                     size: (25, 25)
                     pos: (470, 530)
                     on_press: root.eraser()
+                    on_press: brush_button_image.source = 'resources/eraser.png'
                     Image:
                         source: 'resources/eraser.png'
                         center_x: self.parent.center_x
@@ -140,6 +151,7 @@
                     text: ''
                     size: (25, 25)
                     pos: (470, 495)
+                    on_press: brush_button_image.source = 'resources/magnifyinglass.png'
                     Image:
                         source: 'resources/magnifyinglass.png'
                         center_x: self.parent.center_x
@@ -159,6 +171,9 @@
                         source: 'resources/save.png'
                         center_x: self.parent.center_x
                         center_y: root.parent.center_y
+                    Image:
+                        source: 'resources/save.png'
+                        center_x: self.parent.center_x
                         center_y: self.parent.center_y
 
                 Slider:
@@ -170,6 +185,7 @@
                     cursor_size: (20,20)
                     step: 1
                     orientation: 'horizontal'
+                    on_touch_move: root.slider()
 
                 Label:
                     color: (0, 0, 0, 1)
