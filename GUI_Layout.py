@@ -24,14 +24,13 @@ class MyMain(Widget):
         global paint_color
         paint_color = [0, 0, 0, 1]  # Set pencil color to black
 
-
         browser = FileBrowser(select_string='Select', cancel_state='down')
         browser.bind(on_success=self._fbrowser_success,
                      on_canceled=self._fbrowser_canceled,
                      on_submit=self._fbrowser_submit)
 
         self.popup = Popup(
-            title=short_text,
+            
             content=browser, size_hint=(0.9, 0.9),
             auto_dismiss=False
         )
@@ -66,6 +65,12 @@ class Background(Widget):
                 touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
 
     def on_touch_move(self, touch):
+        if not self.collide_point(*touch.pos):
+            touch.ud['line'].points += [touch.x, touch.y]
+        with self.canvas:
+            if not self.collide_point(*touch.pos):
+                touch.ud['line'].points += [touch.x, touch.y]
+
         if not self.collide_point(*touch.pos):
             touch.ud['line'].points += [touch.x, touch.y]
 
