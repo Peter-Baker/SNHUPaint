@@ -19,7 +19,6 @@ paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
 global rad
 rad = 30
 
-
 class MyMain(Widget):
     global paint_color
     paint_color = [0, 0, 0, 1]
@@ -32,9 +31,10 @@ class MyMain(Widget):
         global paint_color
         paint_color = [0, 0, 0, 1]  # Set pencil color to black
 
-    def slider(self):
+    def slider(self, slidernumber, *args):
         global rad
-        rad = 30
+        rad = slidernumber.value
+        print(rad)
 
     def color_picked(self, colorpicker, *args):
         global paint_color
@@ -55,9 +55,8 @@ class Background(Widget):
         with self.canvas:
             if not self.collide_point(*touch.pos):  # Make sure click is on white canvas, and not TabbedPanel
                 Color(rgba=self.paint)  # Set color to paint_color value
-                rad = 30
                 Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
-                touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
+                touch.ud['line'] = Line(points=(touch.x, touch.y), width=rad/2)
 
     def on_touch_move(self, touch):
         if "line" not in touch.ud:
