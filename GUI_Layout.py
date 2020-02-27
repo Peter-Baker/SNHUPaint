@@ -21,6 +21,9 @@ rad = 30
 
 
 class MyMain(Widget):
+    global paint_color
+    paint_color = [0, 0, 0, 1]
+
     def eraser(self):  # This method is called when someone clicks on the eraser button
         global paint_color
         paint_color = [255, 255, 255, 1]  # Set pencil color to white
@@ -32,10 +35,12 @@ class MyMain(Widget):
     def slider(self):
         global rad
         rad = 30
+
     def color_picked(self, colorpicker, *args):
         global paint_color
         paint_color = colorpicker.color
         print(paint_color)
+
 
 class Background(Widget):
     global paint_color
@@ -72,22 +77,10 @@ class Test(TabbedPanel):
         self._popup.open()
 
 
-
-
 class Test(TabbedPanel):  # Creates tab panel, all of it is done in kivy that is why we pass
     pass
 
 
-
-
-
-
-
-        # Return valye after change color in ColorPicker
-
-
-
-# App will initialize everything that kivy needs
 class CanvasApp(App):
     def build(self):
         return MyMain()
