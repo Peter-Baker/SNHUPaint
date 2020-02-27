@@ -6,12 +6,14 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.widget import Widget
 from kivy.properties import ListProperty
 from kivy.graphics import Color, Ellipse, Line
-from kivy_garden.filebrowser import FileBrowser
-from kivy.uix.popup import Popup
+from kivy.uix.slider import Slider
 
 # Create a global variable that will hold the color of the pencil
 global paint_color
 paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
+
+global rad
+rad = 30
 
 
 class MyMain(Widget):
@@ -43,10 +45,11 @@ class MyMain(Widget):
     def _fbrowser_success(self, instance):
         print(instance.selection)
         self.popup.dismiss()
+    def slider(self):
+        global rad
+        rad = 30
 
-    def _fbrowser_submit(self, instance):
-        print(instance.selection)
-        self.popup.open()
+
 class Background(Widget):
     global paint_color
     paint_color = [0, 0, 0, 1]
@@ -73,16 +76,14 @@ class Background(Widget):
 
         if not self.collide_point(*touch.pos):
             touch.ud['line'].points += [touch.x, touch.y]
+        if "line" not in touch.ud:
+            touch.ud["line"] = Line(points=(touch.x, touch.y))
+        touch.ud["line"].points += [touch.x, touch.y]
+
 
 class Test(TabbedPanel):
-    def pencil_button(self):
-        Color(255, 0, 0)
-        with self.canvas:
-            if not self.collide_point(*touch.pos):
-                touch.ud['line'].points += [touch.x, touch.y]
 
     def open_file_btn_pressed(self, *args):
-
         self._fbrowser = FileBrowser(select_string='Open')
         self._fbrowser.bind(on_success=self._file_load,
                             on_canceled=self._cancel_popup)
