@@ -1,4 +1,5 @@
 <MyMain>:
+
     Background:
         canvas:
             Color:
@@ -19,6 +20,16 @@
             text: 'Home'
             StripLayout:
                 background_color: (4, 4, 4, 1)
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    pos: (520,460)
+                    size:250,100
+
+                    ColorPicker:
+                        id: colorpicker
+                        size_hint: 1.0, 1.0
+                        on_color: root.color_picked(colorpicker)
                 Label:
                     color: (0, 0, 0, 1)
                     text: 'Colors'
@@ -78,7 +89,8 @@
                     text: ''
                     size: (40, 40)
                     pos: (220, 510)
-                    background_color: (2, 2, 2, 1)
+                    background_color: (colorpicker.color)
+
                 Label:
                     pos: (203, 445)
                     color: (0, 0, 0, 1)

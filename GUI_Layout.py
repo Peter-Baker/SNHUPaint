@@ -7,9 +7,13 @@ from kivy.uix.widget import Widget
 from kivy.properties import ListProperty
 from kivy.graphics import Color, Ellipse, Line
 from kivy.uix.slider import Slider
+from kivy.uix.popup import Popup
+from kivy.uix.colorpicker import ColorPicker
+from kivy.properties import ObjectProperty
 
 # Create a global variable that will hold the color of the pencil
 global paint_color
+clr_picker = ColorPicker()
 paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
 
 global rad
@@ -17,7 +21,6 @@ rad = 30
 
 
 class MyMain(Widget):
-
     def eraser(self):  # This method is called when someone clicks on the eraser button
         global paint_color
         paint_color = [255, 255, 255, 1]  # Set pencil color to white
@@ -29,7 +32,10 @@ class MyMain(Widget):
     def slider(self):
         global rad
         rad = 30
-
+    def color_picked(self, colorpicker, *args):
+        global paint_color
+        paint_color = colorpicker.color
+        print(paint_color)
 
 class Background(Widget):
     global paint_color
@@ -55,7 +61,6 @@ class Background(Widget):
 
 
 class Test(TabbedPanel):
-
     def open_file_btn_pressed(self, *args):
         self._fbrowser = FileBrowser(select_string='Open')
         self._fbrowser.bind(on_success=self._file_load,
@@ -67,8 +72,19 @@ class Test(TabbedPanel):
         self._popup.open()
 
 
+
+
 class Test(TabbedPanel):  # Creates tab panel, all of it is done in kivy that is why we pass
     pass
+
+
+
+
+
+
+
+        # Return valye after change color in ColorPicker
+
 
 
 # App will initialize everything that kivy needs
