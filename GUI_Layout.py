@@ -6,6 +6,7 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.widget import Widget
 from kivy.properties import ListProperty
 from kivy.graphics import Color, Ellipse, Line
+from kivy.uix.popup import Popup
 from kivy.uix.slider import Slider
 
 # Create a global variable that will hold the color of the pencil
@@ -49,22 +50,23 @@ class Background(Widget):
                 touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
 
     def on_touch_move(self, touch):
+        if not self.collide_point(*touch.pos):
+            touch.ud['line'].points += [touch.x, touch.y]
+        with self.canvas:
+            if not self.collide_point(*touch.pos):
+                touch.ud['line'].points += [touch.x, touch.y]
+
+        if not self.collide_point(*touch.pos):
+            touch.ud['line'].points += [touch.x, touch.y]
         if "line" not in touch.ud:
             touch.ud["line"] = Line(points=(touch.x, touch.y))
         touch.ud["line"].points += [touch.x, touch.y]
 
+    def save(self, obj):
+        self.Background().export_to_png("screenshot.png")
 
 class Test(TabbedPanel):
-
-    def open_file_btn_pressed(self, *args):
-        self._fbrowser = FileBrowser(select_string='Open')
-        self._fbrowser.bind(on_success=self._file_load,
-                            on_canceled=self._cancel_popup)
-
-        self._popup = Popup(title='Open File', content=self._fbrowser,
-                            size_hint=(0.9, 0.9), auto_dismiss=False)
-
-        self._popup.open()
+    pass
 
 
 class Test(TabbedPanel):  # Creates tab panel, all of it is done in kivy that is why we pass
