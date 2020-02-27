@@ -26,25 +26,6 @@ class MyMain(Widget):
         global paint_color
         paint_color = [0, 0, 0, 1]  # Set pencil color to black
 
-        browser = FileBrowser(select_string='Select', cancel_state='down')
-        browser.bind(on_success=self._fbrowser_success,
-                     on_canceled=self._fbrowser_canceled,
-                     on_submit=self._fbrowser_submit)
-
-        self.popup = Popup(
-            
-            content=browser, size_hint=(0.9, 0.9),
-            auto_dismiss=False
-        )
-        self.popup.open()
-
-    def _fbrowser_canceled(self, instance):
-        print('cancelled, Close self.')
-        self.popup.dismiss()
-
-    def _fbrowser_success(self, instance):
-        print(instance.selection)
-        self.popup.dismiss()
     def slider(self):
         global rad
         rad = 30
@@ -68,14 +49,6 @@ class Background(Widget):
                 touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
 
     def on_touch_move(self, touch):
-        if not self.collide_point(*touch.pos):
-            touch.ud['line'].points += [touch.x, touch.y]
-        with self.canvas:
-            if not self.collide_point(*touch.pos):
-                touch.ud['line'].points += [touch.x, touch.y]
-
-        if not self.collide_point(*touch.pos):
-            touch.ud['line'].points += [touch.x, touch.y]
         if "line" not in touch.ud:
             touch.ud["line"] = Line(points=(touch.x, touch.y))
         touch.ud["line"].points += [touch.x, touch.y]
