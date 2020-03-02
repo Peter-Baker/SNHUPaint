@@ -131,8 +131,8 @@
                     size: (23, 23)
                     pos: (120, 575)
                     on_press:
-                        root.export_to_png('C:/Users/Caela/Pictures/screenshot.png', scale = 1)
-                        print('saved screenshot to C:/Users/Caela/Pictures/screenshot.png')
+                        root.export_to_png('C:/Users/peter/Desktop/screenshot.png', scale = 1)
+                        print('saved screenshot to C:/Users/peter/Desktop/screenshot.png')
                     Image:
                         source: 'resources/save.png'
                         center_x: self.parent.center_x
@@ -147,7 +147,7 @@
                     cursor_size: (20,20)
                     step: 1
                     orientation: 'horizontal'
-                    on_touch_move: root.slider(slider)
+                    on_touch_move: root.slider(slideNum)
 
                 Label:
                     color: (0, 0, 0, 1)

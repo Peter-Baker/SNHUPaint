@@ -31,7 +31,7 @@ class MyMain(Widget):
         global paint_color
         paint_color = [0, 0, 0, 1]  # Set pencil color to black
 
-    def slider(self, slidernumber, *args):
+    def slider(self, slideNum, *args):
         global rad
         rad = self.ids.slideNum.value
 
