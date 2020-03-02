@@ -136,8 +136,8 @@
                         center_y: self.parent.center_y
 
                 Slider:
-                    id: slideNum
-                    min: 1
+                    id: slider
+                    min: 0
                     max: 100
                     value: 30
                     pos: (300, 425)
@@ -149,7 +149,7 @@
                 Label:
                     color: (0, 0, 0, 1)
                     pos: (330, 410)
-                    text: str(slideNum.value)
+                    text: str(slider.value)
                     font_size: 12
 
                 Label:
