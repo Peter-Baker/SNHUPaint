@@ -33,8 +33,7 @@ class MyMain(Widget):
 
     def slider(self, slidernumber, *args):
         global rad
-        rad = slidernumber.value
-        print(rad)
+        rad = self.ids.slideNum.value
 
     def color_picked(self, colorpicker, *args):
         global paint_color
@@ -55,13 +54,16 @@ class Background(Widget):
         with self.canvas:
             if not self.collide_point(*touch.pos):  # Make sure click is on white canvas, and not TabbedPanel
                 Color(rgba=self.paint)  # Set color to paint_color value
-                Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
-                touch.ud['line'] = Line(points=(touch.x, touch.y), width=rad/2)
+                global rad
+                Ellipse(pos=(touch.x, touch.y), size=(rad/2, rad/2))
+                touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
 
     def on_touch_move(self, touch):
         if "line" not in touch.ud:
-            touch.ud["line"] = Line(points=(touch.x, touch.y))
-        touch.ud["line"].points += [touch.x, touch.y]
+            global rad
+            touch.ud["line"] = Line(points=(touch.x, touch.y), width=rad/2)
+        touch.ud["line"].width = rad/3.9
+        touch.ud["line"].points += [touch.x, touch.y]  # Points are the position
 
 
 class Test(TabbedPanel):
