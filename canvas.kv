@@ -1,3 +1,19 @@
+<TextInputPopup>:
+    TextInput:
+        text: ''
+        pos: (213, 258)
+        size_hint: (1, 0.65)
+
+    Button:
+        text: 'Save'
+        pos: (230, 218)
+        size_hint: (0.2, 0.2)
+
+    Button:
+        text: 'Cancel'
+        pos: (495, 218)
+        size_hint: (0.2, 0.2)
+
 <MyMain>:
 
     Background:
@@ -7,6 +23,7 @@
             Rectangle:
                 pos: (0, 0)
                 size: (800, 450)
+
 
     Test:
         background_color: (4, 4, 4, 1) #Color of tab
@@ -87,7 +104,9 @@
                     text: ''
                     size: (25, 25)
                     pos: (460, 495)
-                    on_press: brush_button_image.source = 'resources/font.png'
+                    on_press:
+                        brush_button_image.source = 'resources/font.png'
+                        root.btn()
                     Image:
                         source: 'resources/font.png'
                         center_x: self.parent.center_x
@@ -160,6 +179,7 @@
                     pos: (290, 410)
                     text: 'Pen Size'
                     font_size: 12
+
 
         TabbedPanelItem:
             text: 'Edit'
