@@ -42,7 +42,6 @@ class MyMain(Widget):
     def color_picked(self, colorpicker, *args):
         global paint_color
         paint_color = colorpicker.color
-        print(paint_color)
 
     def btn(self):
         show_popup()
