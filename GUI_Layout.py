@@ -46,6 +46,42 @@ class MyMain(Widget):
     def btn(self):
         show_popup()
 
+    # ---------- DRAW RECTANGLE ----------
+
+    def rectangle_draw(self, event=None):
+        if None not in (self.x1_line_pt, self.y1_line_pt, self.x2_line_pt,                              self.y2_line_pt):
+
+            # fill : Color option names are here http://wiki.tcl.tk/37701
+            # outline : border color
+            # width : width of border in pixels
+
+            event.widget.create_rectangle(self.x1_line_pt, self.y1_line_pt,                  self.x2_line_pt, self.y2_line_pt,
+                fill="midnight blue",
+                outline="yellow",
+                width=2)
+
+    # ---------- DRAW LINE ----------
+
+    def line_draw(self, event=None):
+
+        # Shortcut way to check if none of these values contain None
+        if None not in (self.x1_line_pt, self.y1_line_pt, self.x2_line_pt, self.y2_line_pt):
+            event.widget.create_line(self.x1_line_pt, self.y1_line_pt, self.x2_line_pt, self.y2_line_pt, smooth=TRUE, fill="green")
+
+    # ---------- DRAW OVAL ----------
+
+    def oval_draw(self, event=None):
+        if None not in (self.x1_line_pt, self.y1_line_pt, self.x2_line_pt,                              self.y2_line_pt):
+
+            # fill : Color option names are here http://wiki.tcl.tk/37701
+            # outline : border color
+            # width : width of border in pixels
+
+            event.widget.create_oval(self.x1_line_pt, self.y1_line_pt,                                              self.x2_line_pt, self.y2_line_pt,
+                                        fill="midnight blue",
+                                        outline="yellow",
+                                        width=2)
+
 
 
 class TextInputPopup(FloatLayout):
