@@ -256,17 +256,49 @@
                     pos: (290, 410)
                     text: 'Pen Size'
                     font_size: 12
+
                 TextInput:
                     id: txt_inpt
                     text: ''
-                    pos: (423, 440)
-                    size: (190, 30)
+                    pos: (123, 530)
+                    size: (150, 30)
                     hint_text: 'Enter text'
 
+                Slider:
+                    id: xVal
+                    min: 1
+                    max: 800
+                    value: 300
+                    pos: (140, 455)
+                    cursor_size: (20, 20)
+                    step: 1
+                    orientation: 'horizontal'
+                    on_touch_move: root.slider(xVal)
 
                 Label:
                     color: (0, 0, 0, 1)
-                    pos: (300, 300)
+                    text: 'x:'
+                    pos: (90, 455)
+
+                Slider:
+                    id: yVal
+                    min: 1
+                    max: 800
+                    value: 300
+                    pos: (140, 415)
+                    cursor_size: (20, 20)
+                    step: 1
+                    orientation: 'horizontal'
+                    on_touch_move: root.slider(yVal)
+
+                Label:
+                    color: (0, 0, 0, 1)
+                    text: 'y:'
+                    pos: (90, 415)
+
+                Label:
+                    color: (0, 0, 0, 1)
+                    pos: (xVal.value, yVal.value)
                     text: txt_inpt.text
 
 
