@@ -12,6 +12,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.colorpicker import ColorPicker
 from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.label import Label
 
 # Create a global variable that will hold the color of the pencil
 global paint_color
@@ -20,7 +21,6 @@ paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
 
 global rad
 rad = 30
-
 
 
 class MyMain(Widget):
@@ -44,13 +44,11 @@ class MyMain(Widget):
         paint_color = colorpicker.color
         print(paint_color)
 
-    def btn(self):
-        show_popup()
-
 
 
 class TextInputPopup(FloatLayout):
     pass
+
 
 
 class Background(Widget):
@@ -76,15 +74,6 @@ class Background(Widget):
             touch.ud["line"] = Line(points=(touch.x, touch.y), width=rad/2)
         touch.ud["line"].width = rad/3.9
         touch.ud["line"].points += [touch.x, touch.y]  # Points are the position
-
-
-
-def show_popup():
-    show = TextInputPopup()
-
-    popupWindow = (Popup(title="Enter Text", content=show, size_hint=(None, None), size=(400,200)))
-
-    popupWindow.open()
 
 
 class Test(TabbedPanel):  # Creates tab panel, all of it is done in kivy that is why we pass
