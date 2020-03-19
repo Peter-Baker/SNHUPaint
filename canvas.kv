@@ -1,3 +1,30 @@
+<colorPopup>:
+    BoxLayout:
+        orientation: 'vertical'
+        pos: (167,160)
+        size:250,100
+
+        ColorPicker:
+            id: colorpicker
+            size_hint: 1.0, 1.0
+            on_color: root.color_picked(colorpicker)
+
+<TextInputPopup>:
+    TextInput:
+        text: ''
+        pos: (213, 258)
+        size_hint: (1, 0.65)
+
+    Button:
+        text: 'Save'
+        pos: (230, 218)
+        size_hint: (0.2, 0.2)
+
+    Button:
+        text: 'Cancel'
+        pos: (495, 218)
+        size_hint: (0.2, 0.2)
+
 <MyMain>:
 
     Background:
@@ -24,7 +51,7 @@
 
                 BoxLayout:
                     orientation: 'vertical'
-                    pos: (25,460)
+                    pos: (-130,470)
                     size:250,100
 
                     ColorPicker:
@@ -34,15 +61,15 @@
                 Label:
                     color: (0, 0, 0, 1)
                     text: 'Colors'
-                    pos: (125, 410)
+                    pos: (10, 410)
                     font_size: 12
-
                 Button:
                     text: ''
                     size: (40, 40)
                     pos: (288, 510)
                     background_color: (colorpicker.color)
                     color:0,0,0,1
+                    on_press: root.colorbtn()
 
                 Label:
                     pos: (263, 445)
@@ -122,6 +149,73 @@
                         source: 'resources/magnifyinglass.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
+
+                Label: #Beginning Right Side Box Layout +150
+                    color: (0, 0, 0, 1)
+                    pos: (608, 433)
+                    text: 'Shapes'
+                    font_size: 12
+
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (610, 530)
+                    on_press: root.oval_draw()
+                    on_press: brush_button_image.source = 'resources/C.png'
+                    Image:
+                        source: 'resources/C.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (645, 530)
+                    on_press: root.rectangle_draw()
+                    on_press: brush_button_image.source = 'resources/S.png'
+                    Image:
+                        source: 'resources/S.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (610, 495)
+                    # on_press:
+                        # brush_button_image.source = 'resources/L.png'
+                        # root.btn()
+                    # Image:
+                        # source: 'resources/font.png'
+                        # center_x: self.parent.center_x
+                        # center_y: self.parent.center_y
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (645, 495)
+                    # on_press: brush_button_image.source = 'resources/dropper.png'
+                    # Image:
+                        # source: 'resources/dropper.png'
+                        # center_x: self.parent.center_x
+                        # center_y: self.parent.center_y
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (680, 530)
+                    # on_press: root.line_draw()
+                    on_press: brush_button_image.source = 'resources/L.png'
+                    Image:
+                        source: 'resources/L.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (680, 495)
+                    # on_press: brush_button_image.source = 'resources/magnifyinglass.png'
+                    # Image:
+                        # source: 'resources/magnifyinglass.png'
+                        # center_x: self.parent.center_x
+                        # center_y: self.parent.center_y
+
                 Label:
                     color: (0, 0, 0, 1)
                     pos: (458, 433)
