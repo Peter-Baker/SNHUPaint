@@ -1,3 +1,14 @@
+<colorPopup>:
+    BoxLayout:
+        orientation: 'vertical'
+        pos: (167,160)
+        size:250,100
+
+        ColorPicker:
+            id: colorpicker
+            size_hint: 1.0, 1.0
+            on_color: root.color_picked(colorpicker)
+
 <TextInputPopup>:
     TextInput:
         text: ''
@@ -58,6 +69,7 @@
                     pos: (288, 510)
                     background_color: (colorpicker.color)
                     color:0,0,0,1
+                    on_press: root.colorbtn()
 
                 Label:
                     pos: (263, 445)

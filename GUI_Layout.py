@@ -59,6 +59,11 @@ class MyMain(Widget):
     def btn(self):
         show_popup()
 
+    def colorbtn(self):
+        show = colorPopup()
+        colorpopupWindow = (Popup(title="Pick A Color", content=show, size_hint=(None, None), size=(500, 300)))
+        colorpopupWindow.open()
+
 # ---------- CATCH MOUSE UP ----------
 
     def left_but_down(self, event=None):
@@ -156,6 +161,11 @@ class MyMain(Widget):
 class TextInputPopup(FloatLayout):
     pass
 
+class colorPopup(FloatLayout):
+    def color_picked(self, colorpicker, *args):
+        global paint_color
+        paint_color = colorpicker.color
+    pass
 
 class Background(Widget):
     global paint_color
@@ -188,7 +198,6 @@ def show_popup():
     popupWindow = (Popup(title="Enter Text", content=show, size_hint=(None, None), size=(400, 200)))
 
     popupWindow.open()
-
 
 class Test(TabbedPanel):  # Creates tab panel, all of it is done in kivy that is why we pass
     pass
