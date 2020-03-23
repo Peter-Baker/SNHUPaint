@@ -129,7 +129,7 @@ class MyMain(Widget):
 
     # ---------- DRAW OVAL ----------
 
-    def oval_draw(self, event=None):
+    def oval_draw(self):
         if None not in (self.x1_line_pt, self.y1_line_pt, self.x2_line_pt,                              self.y2_line_pt):
 
             # fill : Color option names are here http://wiki.tcl.tk/37701

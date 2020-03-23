@@ -74,7 +74,7 @@
                 Label:
                     pos: (263, 445)
                     color: (0, 0, 0, 1)
-                    text: 'CurrentColor'
+                    text: 'Current Color'
                     font_size: 12
                 Button:
                     id: brush_button
@@ -89,7 +89,7 @@
                         center_y: self.parent.center_y
                 Label:
                     color: (0, 0, 0, 1)
-                    pos: (359, 445)
+                    pos: (352, 445)
                     text: 'Brush'
                     font_size: 12.5
                 Button:
@@ -239,28 +239,30 @@
                     min: 1
                     max: 100
                     value: 30
-                    pos: (300, 425)
+                    pos: (400, 415)
                     cursor_size: (20,20)
+                    value_track_width: 1
+                    sensitivity: 'handle'
                     step: 1
                     orientation: 'horizontal'
                     on_touch_move: root.slider(slideNum)
 
                 Label:
                     color: (0, 0, 0, 1)
-                    pos: (330, 410)
+                    pos: (355, 415)
                     text: str(slideNum.value)
                     font_size: 12
 
                 Label:
                     color: (0, 0, 0, 1)
-                    pos: (290, 410)
-                    text: 'Pen Size'
+                    pos: (333, 415)
+                    text: 'Size:'
                     font_size: 12
 
                 TextInput:
                     id: txt_inpt
                     text: ''
-                    pos: (123, 530)
+                    pos: (123, 510)
                     size: (150, 30)
                     hint_text: 'Enter text'
 
@@ -269,8 +271,10 @@
                     min: 1
                     max: 800
                     value: 300
-                    pos: (140, 455)
+                    pos: (140, 415)
                     cursor_size: (20, 20)
+                    value_track_width: 1
+                    sensitivity: 'handle'
                     step: 1
                     orientation: 'horizontal'
                     on_touch_move: root.slider(xVal)
@@ -278,15 +282,17 @@
                 Label:
                     color: (0, 0, 0, 1)
                     text: 'x:'
-                    pos: (90, 455)
+                    pos: (90, 415)
 
                 Slider:
                     id: yVal
                     min: 1
                     max: 800
                     value: 300
-                    pos: (140, 415)
+                    pos: (270, 415)
                     cursor_size: (20, 20)
+                    value_track_width: 1
+                    sensitivity: 'handle'
                     step: 1
                     orientation: 'horizontal'
                     on_touch_move: root.slider(yVal)
@@ -294,11 +300,12 @@
                 Label:
                     color: (0, 0, 0, 1)
                     text: 'y:'
-                    pos: (90, 415)
+                    pos: (220, 415)
 
                 Label:
                     color: (0, 0, 0, 1)
-                    pos: (xVal.value, yVal.value)
+                    # pos: (xVal.value, yVal.value)
+                    pos: (300, 300)
                     text: txt_inpt.text
 
 
