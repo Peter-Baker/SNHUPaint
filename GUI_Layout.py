@@ -46,8 +46,10 @@ class MyMain(Widget):
         global paint_color
         paint_color = colorpicker.color
 
-    def btn(self):
-        show_popup()
+    def filebtn(self):
+        show = FilePopup()
+        popupWindow = (Popup(title="File Chooser", content=show, size_hint=(None, None), size=(400, 200)))
+        popupWindow.open()
 
     def colorbtn(self):
         show = colorPopup()
@@ -79,8 +81,12 @@ class MyMain(Widget):
             Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
 
 
-class TextInputPopup(FloatLayout):
-    pass
+class FilePopup(BoxLayout):
+    def selected(self,filename):
+        try:
+            self.ids.image.source = filename[0]
+        except:
+            pass
 
 
 class colorPopup(FloatLayout):
@@ -114,15 +120,6 @@ class Background(Widget):
             touch.ud["line"] = Line(points=(touch.x, touch.y), width=rad / 2)
         touch.ud["line"].width = rad / 3.9
         touch.ud["line"].points += [touch.x, touch.y]  # Points are the position
-
-
-def show_popup():
-    show = TextInputPopup()
-
-    popupWindow = (Popup(title="Enter Text", content=show, size_hint=(None, None), size=(400, 200)))
-
-    popupWindow.open()
-
 
 class Test(TabbedPanel):  # Creates tab panel, all of it is done in kivy that is why we pass
     pass
