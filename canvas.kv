@@ -267,29 +267,29 @@
                 Slider:
                     id: xVal
                     min: 1
-                    max: 800
+                    max: 700
                     value: 300
-                    pos: (140, 455)
-                    cursor_size: (20, 20)
+                    pos: (135, 455)
+                    cursor_size: (20,20)
                     step: 1
                     orientation: 'horizontal'
                     on_touch_move: root.slider(xVal)
+
+                Slider:
+                    id: yVal
+                    min: 1
+                    max: 700
+                    value: 300
+                    pos: (135, 415)
+                    cursor_size: (20,20)
+                    step: 1
+                    orientation: 'horizontal'
+                    on_touch_move: root.slider(yVal)
 
                 Label:
                     color: (0, 0, 0, 1)
                     text: 'x:'
                     pos: (90, 455)
-
-                Slider:
-                    id: yVal
-                    min: 1
-                    max: 800
-                    value: 300
-                    pos: (140, 415)
-                    cursor_size: (20, 20)
-                    step: 1
-                    orientation: 'horizontal'
-                    on_touch_move: root.slider(yVal)
 
                 Label:
                     color: (0, 0, 0, 1)
