@@ -47,8 +47,8 @@ class MyMain(Widget):
         paint_color = colorpicker.color
 
     def filebtn(self):
-        show = FilePopup()
-        popupWindow = (Popup(title="File Chooser", content=show, size_hint=(None, None), size=(400, 200)))
+        show = filePopup()
+        popupWindow = (Popup(title="File Chooser", content=show, size_hint=(None, None), size=(600, 400)))
         popupWindow.open()
 
     def colorbtn(self):
@@ -81,7 +81,7 @@ class MyMain(Widget):
             Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
 
 
-class FilePopup(BoxLayout):
+class filePopup(BoxLayout):
     def selected(self,filename):
         try:
             self.ids.image.source = filename[0]
@@ -101,6 +101,7 @@ class Background(Widget):
     global paint_color
     paint_color = [0, 0, 0, 1]
     paint = paint_color
+
 
     def setColor(self):  # Should reset color, but Error: kivy.properties.ListProperty object is not iterable
         self.paint = paint_color

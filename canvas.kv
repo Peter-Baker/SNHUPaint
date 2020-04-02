@@ -1,4 +1,4 @@
-<FilePopup>:
+<filePopup>:
     id: my_widget
     FileChooserListView:
         id: filechooser
@@ -126,7 +126,6 @@
                     pos: (460, 495)
                     on_press:
                         brush_button_image.source = 'resources/font.png'
-                        root.filebtn()
                     Image:
                         source: 'resources/font.png'
                         center_x: self.parent.center_x
@@ -135,7 +134,8 @@
                     text: ''
                     size: (25, 25)
                     pos: (495, 495)
-                    on_press: brush_button_image.source = 'resources/dropper.png'
+                    on_press:
+                        brush_button_image.source = 'resources/dropper.png'
                     Image:
                         source: 'resources/dropper.png'
                         center_x: self.parent.center_x
@@ -186,17 +186,7 @@
                         source: 'resources/S.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
-                Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (610, 495)
-                    # on_press:
-                        # brush_button_image.source = 'resources/L.png'
-                        # root.btn()
-                    # Image:
-                        # source: 'resources/font.png'
-                        # center_x: self.parent.center_x
-                        # center_y: self.parent.center_y
+
                 Button:
                     text: ''
                     size: (25, 25)
@@ -241,6 +231,17 @@
                         print('saved screenshot to C:/Users/peter/Desktop/screenshot.png')
                     Image:
                         source: 'resources/save.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+
+                Button:
+                    text: ''
+                    size: (23, 23)
+                    pos: (160, 572)
+                    on_press:
+                        root.filebtn()
+                    Image:
+                        source: 'resources/add_image.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
 
