@@ -19,7 +19,6 @@ from kivy.uix.label import Label
 
 # Create a global variable that will hold the color of the pencil
 global paint_color
-clr_picker = ColorPicker()
 paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
 
 global rad
@@ -45,6 +44,10 @@ class MyMain(Widget):
     def color_picked(self, colorpicker, *args):
         global paint_color
         paint_color = colorpicker.color
+
+    def set_color(self, *args):
+        global paint_color
+        return paint_color
 
     def filebtn(self):
         show = filePopup()
@@ -80,22 +83,22 @@ class MyMain(Widget):
             # Add a rectangle
             Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
 
-
 class filePopup(BoxLayout):
     def selected(self,filename):
         try:
             self.ids.image.source = filename[0]
         except:
             pass
-
-
 class colorPopup(FloatLayout):
-    def color_picked(self, colorpicker, *args):
+
+    def get_picked(self, colorpicker, *args):
         global paint_color
-        paint_color = colorpicker.color
-
+        paint_color = colorpicker
+    def set_color(self, colorpicker, *args):
+        global paint_color
+        colorpicker = paint_color
+        return colorpicker
     pass
-
 
 class Background(Widget):
     global paint_color

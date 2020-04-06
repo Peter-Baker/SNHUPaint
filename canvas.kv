@@ -8,16 +8,35 @@
         source: ""
 
 <colorPopup>:
-    BoxLayout:
+    FloatLayout:
         orientation: 'vertical'
         pos: (167,160)
         size:250,100
+        canvas:
+            Color:
+                rgba: (0, 0, 0, 1)
+            Rectangle:
+                pos: (160, 160)
+                size: (480, 240)
 
         ColorPicker:
             id: colorpicker
             size_hint: 1.0, 1.0
-            on_color: root.color_picked(colorpicker)
+            pos: 160, 160
+            on_color: root.get_picked(colorpicker.color)
+            color: root.set_color(colorpicker.color)
 
+        BoxLayout:
+            orientation: 'vertical'
+            pos: (160,160)
+            size:250,100
+
+            canvas:
+                Color:
+                    rgba: (0, 0, 0, 1)
+                Rectangle:
+                    pos: (160, 160)
+                    size: (237, 120)
 <TextInputPopup>:
     TextInput:
         text: ''
@@ -67,6 +86,7 @@
                         id: colorpicker
                         size_hint: 1.0, 1.0
                         on_color: root.color_picked(colorpicker)
+                        color: root.set_color(colorpicker.color)
                 Label:
                     color: (0, 0, 0, 1)
                     text: 'Colors'
@@ -76,8 +96,8 @@
                     text: ''
                     size: (40, 40)
                     pos: (288, 510)
-                    background_color: (colorpicker.color)
-                    color:0,0,0,1
+                    background_color: colorpicker.color
+                    color:0,0,0,0
                     on_press: root.colorbtn()
 
                 Label:
