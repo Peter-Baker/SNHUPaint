@@ -7,6 +7,46 @@
         id: image
         source: ""
 
+<shapePopup>:
+    FloatLayout:
+        orientation: 'vertical'
+        Button:
+            text: ''
+            size_hint: (0.03, 0.1)
+            pos_hint: {'x':0.06, 'y':5.8}
+            on_press: root.circle_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+            on_press: brush_button_image.source = 'resources/C.png'
+            Image:
+                source: 'resources/C.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        Button:
+            text: ''
+            size_hint: (0.03, 0.1)
+            pos_hint: {'x':0.1, 'y':5.8}
+            on_press: root.square_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+            on_press: brush_button_image.source = 'resources/S.png'
+            Image:
+                source: 'resources/S.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+        Button:
+            text: ''
+            size_hint: (0.03, 0.1)
+            pos_hint: {'x':0.14, 'y':5.8}
+            on_press: root.line_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+            on_press: brush_button_image.source = 'resources/L.png'
+            Image:
+                source: 'resources/L.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+        Label:
+            pos_hint: {'x':-0.385, 'y':5.0}
+            text: 'Select a Shape'
+            font_size: 12
+
 <colorPopup>:
     FloatLayout:
         orientation: 'vertical'
@@ -180,61 +220,11 @@
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
 
-                Label: #Beginning Right Side Box Layout +150
-                    color: (0, 0, 0, 1)
-                    pos: (608, 433)
-                    text: 'Shapes'
-                    font_size: 12
-
                 Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (610, 530)
-                    on_press: root.circle_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
-                    on_press: brush_button_image.source = 'resources/C.png'
-                    Image:
-                        source: 'resources/C.png'
-                        center_x: self.parent.center_x
-                        center_y: self.parent.center_y
-                Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (645, 530)
-                    on_press: root.square_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
-                    on_press: brush_button_image.source = 'resources/S.png'
-                    Image:
-                        source: 'resources/S.png'
-                        center_x: self.parent.center_x
-                        center_y: self.parent.center_y
-
-                Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (645, 495)
-                    # on_press: brush_button_image.source = 'resources/dropper.png'
-                    # Image:
-                        # source: 'resources/dropper.png'
-                        # center_x: self.parent.center_x
-                        # center_y: self.parent.center_y
-                Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (680, 530)
-                    on_press: root.line_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
-                    on_press: brush_button_image.source = 'resources/L.png'
-                    Image:
-                        source: 'resources/L.png'
-                        center_x: self.parent.center_x
-                        center_y: self.parent.center_y
-                Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (680, 495)
-                    # on_press: brush_button_image.source = 'resources/magnifyinglass.png'
-                    # Image:
-                        # source: 'resources/magnifyinglass.png'
-                        # center_x: self.parent.center_x
-                        # center_y: self.parent.center_y
+                    text: 'Create Shape'
+                    size: (100, 50)
+                    pos: (605, 500)
+                    on_press: root.createShapeBtn()
 
                 Label:
                     color: (0, 0, 0, 1)

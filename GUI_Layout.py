@@ -59,6 +59,14 @@ class MyMain(Widget):
         colorpopupWindow = (Popup(title="Pick A Color", content=show, size_hint=(None, None), size=(500, 300)))
         colorpopupWindow.open()
 
+    def createShapeBtn(self):
+        show = shapePopup()
+        colorpopupWindow = (Popup(title="Create a Shape", content=show, size_hint=(None, None),
+                                  pos_hint={'x': 0.0, 'y':0.75}, size=(800, 150), background_color=(0, 0, 0, 0)))
+        size: (800, 150)
+        pos: (0, 450)
+        colorpopupWindow.open()
+
     def circle_draw(self, xVal, yVal, slideNum, *args):
         with self.canvas:
             # Add a red color
@@ -98,6 +106,9 @@ class colorPopup(FloatLayout):
         global paint_color
         colorpicker = paint_color
         return colorpicker
+    pass
+
+class shapePopup(FloatLayout):
     pass
 
 class Background(Widget):
