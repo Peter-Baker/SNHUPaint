@@ -19,7 +19,10 @@ from kivy.uix.label import Label
 
 # Create a global variable that will hold the color of the pencil
 global paint_color
+global main_self
+global stencil
 paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
+stencil = 1 #sets stencil to base pencil
 
 global rad
 rad = 30
@@ -30,23 +33,33 @@ class MyMain(Widget):
     paint_color = [0, 0, 0, 1]
 
     def eraser(self):  # This method is called when someone clicks on the eraser button
-        global paint_color
-        paint_color = [255, 255, 255, 1]  # Set pencil color to white
+        global stencil #Lower in the document. This is so you cannot switch the color of the eraser and it also allows us to easily turn off and on the drawing
+        stencil = 3
+
 
     def pencil(self):  # This method is called when someone clicks on the pencil button
-        global paint_color
-        paint_color = [0, 0, 0, 1]  # Set pencil color to black
+        global stencil #Lower in the document.
+        stencil = 1
+    def dropper(self):
+        global stencil
+        stencil = 2
 
     def slider(self, slideNum, *args):
         global rad
         rad = self.ids.slideNum.value
 
-    def color_picked(self, colorpicker, *args):
+    def update_button(self):
+        global  paint_color
+        global main_self
+        main_self.ids.clr_button.background_color = paint_color
+    def color_picked(self, colorpicker):
         global paint_color
-        paint_color = colorpicker.color
-
+        paint_color = colorpicker
+        MyMain.update_button(self)
     def set_color(self, *args):
         global paint_color
+        global main_self
+        main_self = self
         return paint_color
 
     def filebtn(self):
@@ -102,10 +115,10 @@ class colorPopup(FloatLayout):
     def get_picked(self, colorpicker, *args):
         global paint_color
         paint_color = colorpicker
+        MyMain.update_button(self)
     def set_color(self, colorpicker, *args):
         global paint_color
-        colorpicker = paint_color
-        return colorpicker
+        return paint_color
     pass
 
 class shapePopup(FloatLayout):
@@ -113,6 +126,7 @@ class shapePopup(FloatLayout):
 
 class Background(Widget):
     global paint_color
+    global stencil
     paint_color = [0, 0, 0, 1]
     paint = paint_color
 
@@ -121,13 +135,25 @@ class Background(Widget):
         self.paint = paint_color
 
     def on_touch_down(self, touch):  # When someone clicks down on the white canvas...
-        self.setColor()  # This is where I call that function - when the error happens
-        with self.canvas:
-            if not self.collide_point(*touch.pos):  # Make sure click is on white canvas, and not TabbedPanel
-                Color(rgba=self.paint)  # Set color to paint_color value
-                global rad
-                Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
-                touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
+        global rad
+        if stencil == 1: #Stencil for Pen
+            self.setColor()  # This is where I call that function - when the error happens
+            with self.canvas:
+                if not self.collide_point(*touch.pos):  # Make sure click is on white canvas, and not TabbedPanel
+                    Color(rgba=self.paint)  # Set color to paint_color value
+                    Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
+                    touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
+        #if stencil == 2: #Stencil for Dropper
+         #   with self.canvis:
+          #      if not self.collide_point(*touch.pos):
+           #         print(touch.Color)
+        if stencil == 3:#Stencil for Eraser
+            self.setColor()  # This is where I call that function - when the error happens
+            with self.canvas:
+                if not self.collide_point(*touch.pos):  # Make sure click is on white canvas, and not TabbedPanel
+                    Color([0, 0, 0, 1])  # Set color to paint_color value
+                    Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
+                    touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
 
     def on_touch_move(self, touch):
         if "line" not in touch.ud:

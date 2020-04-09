@@ -104,6 +104,7 @@
                 size: (800, 450)
 
 
+
     Test:
         background_color: (4, 4, 4, 1) #Color of tab
         size: (800, 150)
@@ -125,7 +126,7 @@
                     ColorPicker:
                         id: colorpicker
                         size_hint: 1.0, 1.0
-                        on_color: root.color_picked(colorpicker)
+                        on_color: root.color_picked(colorpicker.color)
                         color: root.set_color(colorpicker.color)
                 Label:
                     color: (0, 0, 0, 1)
@@ -133,10 +134,10 @@
                     pos: (10, 410)
                     font_size: 12
                 Button:
+                    id: clr_button
                     text: ''
                     size: (40, 40)
                     pos: (288, 510)
-                    background_color: colorpicker.color
                     color:0,0,0,0
                     on_press: root.colorbtn()
 
@@ -196,6 +197,7 @@
                     pos: (495, 495)
                     on_press:
                         brush_button_image.source = 'resources/dropper.png'
+                        root.dropper()
                     Image:
                         source: 'resources/dropper.png'
                         center_x: self.parent.center_x
