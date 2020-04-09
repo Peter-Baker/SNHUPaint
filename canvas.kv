@@ -176,7 +176,8 @@
                     text: ''
                     size: (25, 25)
                     pos: (495, 530)
-                    on_press: brush_button_image.source = 'resources/bucket.png'
+                    on_press:
+                        brush_button_image.source = 'resources/bucket.png'
                     Image:
                         source: 'resources/bucket.png'
                         center_x: self.parent.center_x
@@ -187,8 +188,10 @@
                     pos: (460, 495)
                     on_press:
                         brush_button_image.source = 'resources/font.png'
+                        root.text()
                     Image:
                         source: 'resources/font.png'
+                        size: 20,20
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
                 Button:
@@ -362,6 +365,7 @@
                     pos: (584, 415)
 
                 Label:
+                    id: txt_inpt_location
                     color: (0, 0, 0, 1)
                     pos: (TextxVal.value, TextyVal.value)
                     text: txt_inpt.text

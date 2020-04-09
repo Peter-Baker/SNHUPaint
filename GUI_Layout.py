@@ -16,7 +16,8 @@ from kivy.uix.colorpicker import ColorPicker
 from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
-
+from kivy.config import Config
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 # Create a global variable that will hold the color of the pencil
 global paint_color
 global main_self
@@ -36,14 +37,17 @@ class MyMain(Widget):
         global stencil #Lower in the document. This is so you cannot switch the color of the eraser and it also allows us to easily turn off and on the drawing
         stencil = 3
 
-
     def pencil(self):  # This method is called when someone clicks on the pencil button
         global stencil #Lower in the document.
         stencil = 1
     def dropper(self):
         global stencil
         stencil = 2
-
+    def text(self):
+        global main_self
+        main_self = self
+        global stencil
+        stencil = 4
     def slider(self, slideNum, *args):
         global rad
         rad = self.ids.slideNum.value
@@ -125,6 +129,7 @@ class shapePopup(FloatLayout):
     pass
 
 class Background(Widget):
+    global main_self
     global paint_color
     global stencil
     paint_color = [0, 0, 0, 1]
@@ -143,10 +148,10 @@ class Background(Widget):
                     Color(rgba=self.paint)  # Set color to paint_color value
                     Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
                     touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
-        #if stencil == 2: #Stencil for Dropper
-         #   with self.canvis:
-          #      if not self.collide_point(*touch.pos):
-           #         print(touch.Color)
+        if stencil == 2: #Stencil for Dropper
+            with self.canvas:
+                if not self.collide_point(*touch.pos):
+                    print(touch.x, touch.y)
         if stencil == 3:#Stencil for Eraser
             self.setColor()  # This is where I call that function - when the error happens
             with self.canvas:
@@ -154,8 +159,18 @@ class Background(Widget):
                     Color([0, 0, 0, 1])  # Set color to paint_color value
                     Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
                     touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
+        if stencil == 4:#Stencil for moving text
+            with self.canvas:
+                if not self.collide_point(*touch.pos):
+                    if 445 > touch.y > 5:
+                        main_self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
 
     def on_touch_move(self, touch):
+        if stencil == 4:#Stencil for moving text
+            with self.canvas:
+                if not self.collide_point(*touch.pos):
+                    if 445 > touch.y > 5:
+                        main_self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
         if "line" not in touch.ud:
             global rad
             touch.ud["line"] = Line(points=(touch.x, touch.y), width=rad / 2)
