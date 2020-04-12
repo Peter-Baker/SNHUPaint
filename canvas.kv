@@ -7,46 +7,6 @@
         id: image
         source: ""
 
-<shapePopup>:
-    FloatLayout:
-        orientation: 'vertical'
-        Button:
-            text: ''
-            size_hint: (0.03, 0.1)
-            pos_hint: {'x':0.06, 'y':5.8}
-            on_press: root.circle_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
-            on_press: brush_button_image.source = 'resources/C.png'
-            Image:
-                source: 'resources/C.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-        Button:
-            text: ''
-            size_hint: (0.03, 0.1)
-            pos_hint: {'x':0.1, 'y':5.8}
-            on_press: root.square_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
-            on_press: brush_button_image.source = 'resources/S.png'
-            Image:
-                source: 'resources/S.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-
-        Button:
-            text: ''
-            size_hint: (0.03, 0.1)
-            pos_hint: {'x':0.14, 'y':5.8}
-            on_press: root.line_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
-            on_press: brush_button_image.source = 'resources/L.png'
-            Image:
-                source: 'resources/L.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-
-        Label:
-            pos_hint: {'x':-0.385, 'y':5.0}
-            text: 'Select a Shape'
-            font_size: 12
-
 <colorPopup>:
     FloatLayout:
         orientation: 'vertical'
@@ -165,7 +125,7 @@
                 Button:
                     text: ''
                     size: (25, 25)
-                    pos: (460, 530)
+                    pos: (460, 515)
                     on_press: root.pencil()
                     on_press: brush_button_image.source = 'resources/pencil.png'
                     Image:
@@ -175,7 +135,7 @@
                 Button:
                     text: ''
                     size: (25, 25)
-                    pos: (495, 530)
+                    pos: (495, 515)
                     on_press:
                         brush_button_image.source = 'resources/bucket.png'
                     Image:
@@ -185,19 +145,7 @@
                 Button:
                     text: ''
                     size: (25, 25)
-                    pos: (460, 495)
-                    on_press:
-                        brush_button_image.source = 'resources/font.png'
-                        root.text()
-                    Image:
-                        source: 'resources/font.png'
-                        size: 20,20
-                        center_x: self.parent.center_x
-                        center_y: self.parent.center_y
-                Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (495, 495)
+                    pos: (565, 515)
                     on_press:
                         brush_button_image.source = 'resources/dropper.png'
                         root.dropper()
@@ -208,32 +156,17 @@
                 Button:
                     text: ''
                     size: (25, 25)
-                    pos: (530, 530)
+                    pos: (530, 515)
                     on_press: root.eraser()
                     on_press: brush_button_image.source = 'resources/eraser.png'
                     Image:
                         source: 'resources/eraser.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
-                Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (530, 495)
-                    on_press: brush_button_image.source = 'resources/magnifyinglass.png'
-                    Image:
-                        source: 'resources/magnifyinglass.png'
-                        center_x: self.parent.center_x
-                        center_y: self.parent.center_y
-
-                Button:
-                    text: 'Create Shape'
-                    size: (100, 50)
-                    pos: (605, 500)
-                    on_press: root.createShapeBtn()
 
                 Label:
                     color: (0, 0, 0, 1)
-                    pos: (458, 433)
+                    pos: (475, 450)
                     text: 'Tools'
                     font_size: 12
 
@@ -329,16 +262,68 @@
                     pos: (153, 415)
 
                 Label:
+                    id: txt_inpt_location
                     color: (0, 0, 0, 1)
-                    text: 'x:'
-                    pos: (490, 415)
+                    pos: (TextxVal.value, TextyVal.value)
+                    text: txt_inpt.text
 
+                #Clear button
+                Button:
+                    text: 'Clear'
+                    size: (75, 50)
+                    pos: (650, 500)
+                    on_press: root.clearbtn()
+
+
+        TabbedPanelItem:
+            text: 'Shape'
+            StripLayout:
+                background_color: (4, 4, 4, 1)
+                Button:
+                    text: ''
+                    size: (23, 23)
+                    pos: (20, 505)
+                    on_press: root.circle_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+                    on_press: brush_button_image.source = 'resources/C.png'
+                    Image:
+                        source: 'resources/C.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                Button:
+                    text: ''
+                    size: (23, 23)
+                    pos: (60, 505)
+                    on_press: root.square_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+                    on_press: brush_button_image.source = 'resources/S.png'
+                    Image:
+                        source: 'resources/S.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+
+                Button:
+                    text: ''
+                    size: (23, 23)
+                    pos: (100, 505)
+                    on_press: root.line_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+                    on_press: brush_button_image.source = 'resources/L.png'
+                    Image:
+                        source: 'resources/L.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+
+                Label:
+                    pos: (23, 500)
+                    text: '[color=000000]Select a Shape[/color]'
+                    markup: True
+                    font_size: 16
+
+                #Position
                 Slider:
                     id: ShapexVal
                     min: 1
-                    max: 700
-                    value: 300
-                    pos: (530, 415)
+                    max: 770
+                    value: 385
+                    pos: (170, 485)
                     cursor_size: (20, 20)
                     value_track_width: 1
                     sensitivity: 'handle'
@@ -346,12 +331,17 @@
                     orientation: 'horizontal'
                     on_touch_move: root.slider(ShapexVal)
 
+                Label:
+                    pos: (170, 505)
+                    text: '[color=000000]X-Position[/color]'
+                    markup: True
+
                 Slider:
                     id: ShapeyVal
                     min: 1
-                    max: 700
-                    value: 300           
-                    pos: (630, 415)
+                    max: 420
+                    value: 210
+                    pos: (170, 430)
                     cursor_size: (20, 20)
                     value_track_width: 1
                     sensitivity: 'handle'
@@ -360,18 +350,35 @@
                     on_touch_move: root.slider(ShapeyVal)
 
                 Label:
-                    color: (0, 0, 0, 1)
-                    text: 'y:'
-                    pos: (584, 415)
+                    pos: (170, 450)
+                    text: '[color=000000]Y-Position[/color]'
+                    markup: True
+
+                #Size
+                Slider:
+                    id: slideNum
+                    min: 1
+                    max: 100
+                    value: 50
+                    pos: (300, 460)
+                    cursor_size: (20,20)
+                    value_track_width: 1
+                    sensitivity: 'handle'
+                    step: 1
+                    orientation: 'horizontal'
+                    on_touch_move: root.slider(slideNum)
 
                 Label:
-                    id: txt_inpt_location
-                    color: (0, 0, 0, 1)
-                    pos: (TextxVal.value, TextyVal.value)
-                    text: txt_inpt.text
+                    pos: (300, 480)
+                    text: '[color=000000]Size:[/color]'
+                    markup: True
 
-
-        TabbedPanelItem:
-            text: 'Edit'
-            Label:
-                text: 'Edit tab content will be here'
+                BoxLayout: #Jacob can you edit this and remove the bars I don't need?
+                    orientation: 'vertical'
+                    pos: (450,460)
+                    size:250,100
+                    ColorPicker:
+                        id: colorpickerShape
+                        size_hint: 1.0, 1.0
+                        on_color: root.color_picked(colorpickerShape.color)
+                        color: root.set_color(colorpickerShape.color)

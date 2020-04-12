@@ -18,6 +18,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.config import Config
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
+from kivy.uix.button import Button
 # Create a global variable that will hold the color of the pencil
 global paint_color
 global main_self
@@ -76,13 +77,24 @@ class MyMain(Widget):
         colorpopupWindow = (Popup(title="Pick A Color", content=show, size_hint=(None, None), size=(500, 300)))
         colorpopupWindow.open()
 
-    def createShapeBtn(self):
-        show = shapePopup()
-        colorpopupWindow = (Popup(title="Create a Shape", content=show, size_hint=(None, None),
-                                  pos_hint={'x': 0.0, 'y':0.75}, size=(800, 150), background_color=(0, 0, 0, 0)))
-        size: (800, 150)
-        pos: (0, 450)
-        colorpopupWindow.open()
+    def clearbtn(self):
+        #show = clearPopup()
+        #clearpopupWindow = Popup(title='Test popup', content=show, size_hint=(None, None), size=(400, 400))
+        #clearpopupWindow.open()
+        box = BoxLayout(orientation='vertical', padding=(10))
+        box.add_widget(Label(text="Are you sure you want to clear the project? \n Once clicked it cannot be re-done!"))
+        btn1 = Button(text = "YES TO CLEAR")
+        btn2 = Button(text = "NO TO GO BACK")
+        box.add_widget(btn1)
+        box.add_widget(btn2)
+
+        popup = Popup(title='Check if Correct', title_size=(30),
+                      title_align='center', content=box,
+                      size_hint=(None, None), size=(400, 400), auto_dismiss=True)
+        btn2.bind(on_press = popup.dismiss)
+        #btn1.bind(on_press = self.canvas.after.clear) #This will be where we will call something to clear the canvas
+        popup.open()
+
 
     def circle_draw(self, xVal, yVal, slideNum, *args):
         with self.canvas:
@@ -90,7 +102,8 @@ class MyMain(Widget):
             Color(1, 0, 0)
 
             # Add a rectangle
-            Line(circle=(xVal, yVal, slideNum))
+            Ellipse(pos=(xVal, yVal), size=(slideNum, slideNum))
+            #Line(circle=(xVal, yVal, slideNum))
 
     def square_draw(self, xVal, yVal, slideNum, *args):
         with self.canvas:
@@ -108,12 +121,19 @@ class MyMain(Widget):
             # Add a rectangle
             Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
 
+
 class filePopup(BoxLayout):
     def selected(self,filename):
         try:
             self.ids.image.source = filename[0]
         except:
             pass
+
+
+class clearPopup(FloatLayout):
+    pass
+
+
 class colorPopup(FloatLayout):
 
     def get_picked(self, colorpicker, *args):
