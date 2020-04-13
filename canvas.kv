@@ -299,7 +299,7 @@
                     text: ''
                     size: (23, 23)
                     pos: (20, 505)
-                    on_press: root.circle_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+                    on_press: root.circle_draw(ShapexVal.value, ShapeyVal.value, slideNumShape.value)
                     on_press: brush_button_image.source = 'resources/C.png'
                     Image:
                         source: 'resources/C.png'
@@ -309,7 +309,7 @@
                     text: ''
                     size: (23, 23)
                     pos: (60, 505)
-                    on_press: root.square_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+                    on_press: root.square_draw(ShapexVal.value, ShapeyVal.value, slideNumShape.value)
                     on_press: brush_button_image.source = 'resources/S.png'
                     Image:
                         source: 'resources/S.png'
@@ -320,7 +320,7 @@
                     text: ''
                     size: (23, 23)
                     pos: (100, 505)
-                    on_press: root.line_draw(ShapexVal.value, ShapeyVal.value, slideNum.value)
+                    on_press: root.line_draw(ShapexVal.value, ShapeyVal.value, slideNumShape.value)
                     on_press: brush_button_image.source = 'resources/L.png'
                     Image:
                         source: 'resources/L.png'
@@ -372,7 +372,7 @@
 
                 #Size
                 Slider:
-                    id: slideNum
+                    id: slideNumShape
                     min: 1
                     max: 100
                     value: 50
@@ -382,7 +382,7 @@
                     sensitivity: 'handle'
                     step: 1
                     orientation: 'horizontal'
-                    on_touch_move: root.slider(slideNum)
+                    on_touch_move: root.sliderShape(slideNumShape)
 
                 Label:
                     pos: (300, 480)

@@ -30,6 +30,8 @@ stencil = 1 #sets stencil to base pencil
 global rad
 rad = 30
 
+global radShape
+radShape = 50
 
 class MyMain(Widget):
     global paint_color
@@ -50,9 +52,14 @@ class MyMain(Widget):
         main_self = self
         global stencil
         stencil = 4
+
     def slider(self, slideNum, *args):
         global rad
         rad = self.ids.slideNum.value
+
+    def sliderShape(self, slideNumShape, *args):
+        global radShape
+        radShape = self.ids.slideNumShape.value
 
     def update_button(self):
         global  paint_color
