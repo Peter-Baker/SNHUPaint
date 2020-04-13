@@ -23,6 +23,7 @@ from kivy.uix.button import Button
 global paint_color
 global main_self
 global stencil
+global name
 paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
 stencil = 1 #sets stencil to base pencil
 
@@ -71,6 +72,14 @@ class MyMain(Widget):
         show = filePopup()
         popupWindow = (Popup(title="File Chooser", content=show, size_hint=(None, None), size=(600, 400)))
         popupWindow.open()
+
+    def fileImage(self, name):
+        try:
+            print(self.name)
+            file = filePopup()
+            return file.selected(self.name)
+        except:
+            pass
 
     def colorbtn(self):
         show = colorPopup()
@@ -123,8 +132,11 @@ class MyMain(Widget):
 
 class filePopup(BoxLayout):
     def selected(self,filename):
+        global name
         try:
             self.ids.image.source = filename[0]
+            print (name)
+            fImage = MyMain().fileImage(self.ids.image.source)
         except:
             pass
 
