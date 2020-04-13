@@ -84,12 +84,7 @@ class MyMain(Widget):
         popupWindow.open()
 
     def fileImage(self, name):
-        try:
-            print(self.name)
-            file = filePopup()
-            return file.selected(self.name)
-        except:
-            pass
+        self.id.backgroundImage.source = name
 
     def colorbtn(self):
         show = colorPopup()
@@ -148,9 +143,8 @@ class filePopup(BoxLayout):
         global name
         try:
             self.ids.image.source = filename[0]
-            print (name)
-            fImage = MyMain().fileImage(self.ids.image.source)
         except:
+            print("not reading file")
             pass
 
 
