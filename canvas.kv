@@ -58,7 +58,7 @@
     Background:
         canvas:
             Color:
-                rgb: (255, 255, 255)
+                rgb: ([1, 1, 1])
             Rectangle:
                 pos: (0, 0)
                 size: (800, 450)
@@ -163,10 +163,22 @@
                         source: 'resources/eraser.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (600, 515)
+                    on_press:
+                        brush_button_image.source = 'resources/font.png'
+                        root.text()
+                    Image:
+                        source: 'resources/font.png'
+                        size: 20,20
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
 
                 Label:
                     color: (0, 0, 0, 1)
-                    pos: (475, 450)
+                    pos: (494, 450)
                     text: 'Tools'
                     font_size: 12
 
@@ -381,4 +393,4 @@
                         id: colorpickerShape
                         size_hint: 1.0, 1.0
                         on_color: root.color_picked(colorpickerShape.color)
-                        color: root.set_color(colorpickerShape.color)
+                        color: colorpicker.color

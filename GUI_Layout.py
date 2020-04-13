@@ -121,7 +121,6 @@ class MyMain(Widget):
             # Add a rectangle
             Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
 
-
 class filePopup(BoxLayout):
     def selected(self,filename):
         try:
@@ -156,46 +155,90 @@ class Background(Widget):
     paint = paint_color
 
 
+    def __init__(self, **kwargs):
+        super(Background, self).__init__(**kwargs)
+        with self.canvas:
+            self.fbo = Fbo(size=(800, 450))
+
     def setColor(self):  # Should reset color, but Error: kivy.properties.ListProperty object is not iterable
         self.paint = paint_color
 
     def on_touch_down(self, touch):  # When someone clicks down on the white canvas...
+        global paint_color
         global rad
         if stencil == 1: #Stencil for Pen
             self.setColor()  # This is where I call that function - when the error happens
             with self.canvas:
-                if not self.collide_point(*touch.pos):  # Make sure click is on white canvas, and not TabbedPanel
+                if not self.collide_point(*touch.pos) and 460 > touch.y > -10:  # Make sure click is on white canvas, and not TabbedPanel
                     Color(rgba=self.paint)  # Set color to paint_color value
-                    Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
+                    Ellipse(pos=(touch.x - 12, touch.y - 11), size=(rad / 2, rad / 2))
                     touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
+                with self.fbo:
+                    if not self.collide_point(*touch.pos):
+                        Color(rgba=self.paint)
+                        Ellipse(pos=(touch.x - 12, touch.y - 11), size=(rad / 2, rad / 2))
+                        touch.ud['linefbo'] = Line(points=(touch.x, touch.y), width=15)
+
+
         if stencil == 2: #Stencil for Dropper
             with self.canvas:
-                if not self.collide_point(*touch.pos):
-                    print(touch.x, touch.y)
+                if not self.collide_point(*touch.pos) and 450 > touch.y > 0:
+                    r, g, b, a = ['', '', '', '']
+                    viv_color = self.fbo.get_pixel_color(touch.x, touch.y)
+                    r = viv_color[0]
+                    g = viv_color[1]
+                    b = viv_color[2]
+                    a =viv_color[3]
+                    float(r)
+                    float(g)
+                    float(b)
+                    float(a)
+                    r /= 255
+                    g /= 255
+                    b /= 255
+                    a /= 255
+                    viv_color = [r,g,b,a]
+                    if viv_color == [0.0, 0.0, 0.0, 0.0] or [1.0, 1.0, 1.0, 1.0]:
+                        return
+                    paint_color = viv_color
+                    MyMain.update_button(self)
+
         if stencil == 3:#Stencil for Eraser
             self.setColor()  # This is where I call that function - when the error happens
             with self.canvas:
-                if not self.collide_point(*touch.pos):  # Make sure click is on white canvas, and not TabbedPanel
+                if not self.collide_point(*touch.pos) and 460 > touch.y > -10:  # Make sure click is on white canvas, and not TabbedPanel
                     Color([0, 0, 0, 1])  # Set color to paint_color value
                     Ellipse(pos=(touch.x, touch.y), size=(rad / 2, rad / 2))
                     touch.ud['line'] = Line(points=(touch.x, touch.y), width=15)
+                    with self.fbo:
+                        if not self.collide_point(*touch.pos):
+                            Color([1, 1, 1])
+                            Ellipse(pos=(touch.x - 12, touch.y - 11), size=(rad / 2, rad / 2))
+                            touch.ud['linefbo'] = Line(points=(touch.x, touch.y), width=15)
         if stencil == 4:#Stencil for moving text
             with self.canvas:
                 if not self.collide_point(*touch.pos):
                     if 445 > touch.y > 5:
-                        main_self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
+                        self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
 
     def on_touch_move(self, touch):
         if stencil == 4:#Stencil for moving text
             with self.canvas:
                 if not self.collide_point(*touch.pos):
                     if 445 > touch.y > 5:
-                        main_self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
-        if "line" not in touch.ud:
-            global rad
-            touch.ud["line"] = Line(points=(touch.x, touch.y), width=rad / 2)
-        touch.ud["line"].width = rad / 3.9
-        touch.ud["line"].points += [touch.x, touch.y]  # Points are the position
+                        self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
+
+        if not self.collide_point(*touch.pos) and 460 > touch.y > -10:
+            if "line" not in touch.ud:
+                global rad
+                touch.ud["line"] = Line(points=(touch.x, touch.y), width=rad / 2)
+            touch.ud["line"].width = rad / 3.9
+            touch.ud["line"].points += [touch.x, touch.y]  # Points are the position
+        if not self.collide_point(*touch.pos) and 460 > touch.y > -10:
+            if "linefbo" not in touch.ud:
+                touch.ud["linefbo"] = Line(points=(touch.x, touch.y), width=rad / 2)
+            touch.ud["linefbo"].width = rad / 3.9
+            touch.ud["linefbo"].points += [touch.x, touch.y]
 
 class Test(TabbedPanel):  # Creates tab panel, all of it is done in kivy that is why we pass
     pass
