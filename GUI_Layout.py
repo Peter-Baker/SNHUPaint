@@ -198,10 +198,10 @@ class Background(Widget):
                     b /= 255
                     a /= 255
                     viv_color = [r,g,b,a]
-                    if viv_color == [0.0, 0.0, 0.0, 0.0] or [1.0, 1.0, 1.0, 1.0]:
+                    if viv_color == [0.0, 0.0, 0.0, 0.0] or viv_color == [1.0, 1.0, 1.0, 1.0]:
                         return
                     paint_color = viv_color
-                    MyMain.update_button(self)
+                    MyMain.update_button(main_self)
 
         if stencil == 3:#Stencil for Eraser
             self.setColor()  # This is where I call that function - when the error happens
@@ -219,22 +219,22 @@ class Background(Widget):
             with self.canvas:
                 if not self.collide_point(*touch.pos):
                     if 445 > touch.y > 5:
-                        self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
+                        main_self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
 
     def on_touch_move(self, touch):
         if stencil == 4:#Stencil for moving text
             with self.canvas:
                 if not self.collide_point(*touch.pos):
                     if 445 > touch.y > 5:
-                        self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
+                        main_self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
 
-        if not self.collide_point(*touch.pos) and 460 > touch.y > -10:
+        if 460 > touch.y > -10:
             if "line" not in touch.ud:
                 global rad
                 touch.ud["line"] = Line(points=(touch.x, touch.y), width=rad / 2)
             touch.ud["line"].width = rad / 3.9
             touch.ud["line"].points += [touch.x, touch.y]  # Points are the position
-        if not self.collide_point(*touch.pos) and 460 > touch.y > -10:
+        if 460 > touch.y > -10:
             if "linefbo" not in touch.ud:
                 touch.ud["linefbo"] = Line(points=(touch.x, touch.y), width=rad / 2)
             touch.ud["linefbo"].width = rad / 3.9
