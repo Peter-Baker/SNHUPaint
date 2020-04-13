@@ -22,6 +22,7 @@ from kivy.uix.button import Button
 # Create a global variable that will hold the color of the pencil
 global paint_color
 global main_self
+global maincanvas_self
 global stencil
 global name
 paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
@@ -35,6 +36,7 @@ radShape = 50
 
 class MyMain(Widget):
     global paint_color
+    global fbo_self
     paint_color = [0, 0, 0, 1]
 
     def eraser(self):  # This method is called when someone clicks on the eraser button
@@ -65,6 +67,7 @@ class MyMain(Widget):
         global  paint_color
         global main_self
         main_self.ids.clr_button.background_color = paint_color
+        main_self.ids.clr_button2.background_color = paint_color
     def color_picked(self, colorpicker):
         global paint_color
         paint_color = colorpicker
@@ -113,30 +116,33 @@ class MyMain(Widget):
 
 
     def circle_draw(self, xVal, yVal, slideNum, *args):
+        global paint_color
         with self.canvas:
-            # Add a red color
-            Color(1, 0, 0)
-
+            Color(paint_color[0], paint_color[1], paint_color[2])
             # Add a rectangle
             Ellipse(pos=(xVal, yVal), size=(slideNum, slideNum))
             #Line(circle=(xVal, yVal, slideNum))
 
     def square_draw(self, xVal, yVal, slideNum, *args):
+        global paint_color
         with self.canvas:
-            # Add a red color
-            Color(1, 0, 0)  # Need to figure out colors
-
+            Color(paint_color[0], paint_color[1], paint_color[2])
             # Add a rectangle
             Rectangle(pos=(xVal, yVal), size=(slideNum, slideNum))
-
+        with maincanvas_self.fbo:# Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+            Color(paint_color[0], paint_color[1], paint_color[2])
+            # Add a rectangle
+            Rectangle(pos=(xVal, yVal), size=(slideNum, slideNum))
     def line_draw(self, xVal, yVal, slideNum, *args):
+        global paint_color
         with self.canvas:
-            # Add a red color
-            Color(1, 0, 0)  # Need to figure out colors
-
+            Color(paint_color[0], paint_color[1], paint_color[2])
             # Add a rectangle
             Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
-
+        with maincanvas_self.fbos:# Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+            Color(paint_color[0], paint_color[1], paint_color[2])
+            # Add a rectangle
+            Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
 class filePopup(BoxLayout):
     def selected(self,filename):
         global name
@@ -168,6 +174,7 @@ class shapePopup(FloatLayout):
 
 class Background(Widget):
     global main_self
+    global maincanvas_self
     global paint_color
     global stencil
     paint_color = [0, 0, 0, 1]
@@ -175,7 +182,8 @@ class Background(Widget):
 
 
     def __init__(self, **kwargs):
-        main_self = self
+        global maincanvas_self
+        maincanvas_self = self
         super(Background, self).__init__(**kwargs)
         with self.canvas:
             self.fbo = Fbo(size=(800, 450))

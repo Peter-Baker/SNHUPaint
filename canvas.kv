@@ -297,6 +297,44 @@
             text: 'Shape'
             StripLayout:
                 background_color: (4, 4, 4, 1)
+
+                FloatLayout:
+                    orientation: 'vertical'
+                    pos: (450,460)
+                    size:250,100
+
+                    ColorPicker:
+                        id: colorpickerShape
+                        pos: (370,460)
+                        size: 300, 150
+                        on_color: root.color_picked(colorpickerShape.color)
+                        color: colorpicker.color
+                    BoxLayout:
+                        orientation: 'vertical'
+                        pos: (160,160)
+                        size:250,100
+
+                        canvas:
+                            Color:
+                                rgba: (.752, .752, .752, 1)
+                            Rectangle:
+                                pos: (370, 450)
+                                size: (135, 118)
+
+                    Button:
+                        id: clr_button2
+                        text: ''
+                        size_hint: (.19, .45)
+                        pos: (420,500)
+                        color:0,0,0,0
+                        on_press: root.colorbtn()
+                        background_normal: 'resources/buttonFix.png'
+                    Label:
+                        pos: (320,430)
+                        color: (0, 0, 0, 1)
+                        text: 'Current Color'
+                        font_size: 12
+
                 Button:
                     text: ''
                     size: (23, 23)
@@ -391,12 +429,6 @@
                     text: '[color=000000]Size:[/color]'
                     markup: True
 
-                BoxLayout: #Jacob can you edit this and remove the bars I don't need?
-                    orientation: 'vertical'
-                    pos: (450,460)
-                    size:250,100
-                    ColorPicker:
-                        id: colorpickerShape
-                        size_hint: 1.0, 1.0
-                        on_color: root.color_picked(colorpickerShape.color)
-                        color: colorpicker.color
+
+
+
