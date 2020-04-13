@@ -156,6 +156,7 @@ class Background(Widget):
 
 
     def __init__(self, **kwargs):
+        main_self = self
         super(Background, self).__init__(**kwargs)
         with self.canvas:
             self.fbo = Fbo(size=(800, 450))
@@ -198,8 +199,9 @@ class Background(Widget):
                     b /= 255
                     a /= 255
                     viv_color = [r,g,b,a]
-                    if viv_color == [0.0, 0.0, 0.0, 0.0] or viv_color == [1.0, 1.0, 1.0, 1.0]:
-                        return
+                    if viv_color == [0.0, 0.0, 0.0, 0.0]:
+                        viv_color = [1.0, 1.0, 1.0, 1.0]
+
                     paint_color = viv_color
                     MyMain.update_button(main_self)
 
