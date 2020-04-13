@@ -28,7 +28,7 @@ paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
 stencil = 1 #sets stencil to base pencil
 
 global rad
-rad = 30
+rad = 50
 
 global radShape
 radShape = 50
