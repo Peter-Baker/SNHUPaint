@@ -26,6 +26,7 @@ global main_self
 global maincanvas_self
 global stencil
 global name
+global firstimg, image_widget, fboimage_widget
 paint_color = ListProperty([0, 0, 0, 1])  # Set the color of the pencil to black
 stencil = 1 #sets stencil to base pencil
 
@@ -140,13 +141,10 @@ class MyMain(Widget):
 class filePopup(BoxLayout):
     def selected(self,filename):
         global name
-        try:
-            self.ids.image.source = filename[0]
-            name = filename[0]
-            MyMain.fileImage(self, name)
-        except:
-            print("exception in filePopup")
-            pass
+        self.ids.image.source = filename[0]
+        name = filename[0]
+        Background.fileImage(self, name)
+        pass
 
 
 class clearPopup(FloatLayout):
@@ -175,7 +173,6 @@ class Background(Widget):
     paint_color = [0, 0, 0, 1]
     paint = paint_color
 
-
     def __init__(self, **kwargs):
         global maincanvas_self
         maincanvas_self = self
@@ -186,13 +183,54 @@ class Background(Widget):
     def setColor(self):  # Should reset color, but Error: kivy.properties.ListProperty object is not iterable
         self.paint = paint_color
 
-    def fileImage(self, name):
+    def fileImage(self,name):
+        global firstimg
+        global image_widget,fboimage_widget
         try:
-            return MyMain.add_widget(Image(source = 'resources\image.png', size = (500, 500)))
-        except:
-            print("exception in fileImage")
-            pass
+            firstimg
+        except NameError:
+            firstimg = False
 
+        if firstimg:
+            #maincanvas_self.remove_widget(image_widget)
+            maincanvas_self.canvas.remove(fboimage_widget)
+            maincanvas_self.fbo.remove(fboimage_widget)
+        else:
+            firstimg = True
+
+        image_widget = Image(source=name, size=(800, 450)) #Rescaling Image
+        print(image_widget.texture.size)
+        x = float(image_widget.texture.size[0])
+        y = float(image_widget.texture.size[1])
+        xchange = x/800
+        ychange = y/450
+        if xchange > ychange:
+            x = x/xchange
+            y = y/xchange
+            u = 450 - y
+            u = u/2
+            poss = (0,u)
+        elif ychange > xchange:
+            x = x / ychange
+            y = y / ychange
+            v = 800 - x
+            print(v)
+            v = v/2
+            poss = (v,0)
+        else:
+            x = x / xchange
+            y = y / ychange
+            poss = (0,0)
+        fboimage_widget = Rectangle(source=name,size=(x,y),pos=(poss)) #End of rescaling image
+        maincanvas_self.canvas.add(fboimage_widget)
+        #maincanvas_self.add_widget(image_widget)
+        maincanvas_self.fbo.add(fboimage_widget)
+        #x = 1
+        #y = 1
+        #while x > 851:
+            #while y > 401:
+                #y = y + 1
+            #x = x + 1
     def on_touch_down(self, touch):  # When someone clicks down on the white canvas...
         global paint_color
         global rad
