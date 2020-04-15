@@ -19,6 +19,7 @@ from kivy.uix.label import Label
 from kivy.config import Config
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 # Create a global variable that will hold the color of the pencil
 global paint_color
 global main_self
@@ -83,9 +84,6 @@ class MyMain(Widget):
         popupWindow = (Popup(title="File Chooser", content=show, size_hint=(None, None), size=(600, 400)))
         popupWindow.open()
 
-    def fileImage(self, name):
-        self.id.backgroundImage.source = name
-
     def colorbtn(self):
         show = colorPopup()
         colorpopupWindow = (Popup(title="Pick A Color", content=show, size_hint=(None, None), size=(500, 300)))
@@ -138,13 +136,16 @@ class MyMain(Widget):
             Color(paint_color[0], paint_color[1], paint_color[2])
             # Add a rectangle
             Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
+
 class filePopup(BoxLayout):
     def selected(self,filename):
         global name
         try:
             self.ids.image.source = filename[0]
+            name = filename[0]
+            MyMain.fileImage(self, name)
         except:
-            print("not reading file")
+            print("exception in filePopup")
             pass
 
 
@@ -184,6 +185,13 @@ class Background(Widget):
 
     def setColor(self):  # Should reset color, but Error: kivy.properties.ListProperty object is not iterable
         self.paint = paint_color
+
+    def fileImage(self, name):
+        try:
+            return MyMain.add_widget(Image(source = 'resources\image.png', size = (500, 500)))
+        except:
+            print("exception in fileImage")
+            pass
 
     def on_touch_down(self, touch):  # When someone clicks down on the white canvas...
         global paint_color
