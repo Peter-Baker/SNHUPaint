@@ -199,7 +199,6 @@ class Background(Widget):
             firstimg = True
 
         image_widget = Image(source=name, size=(800, 450)) #Rescaling Image
-        print(image_widget.texture.size)
         x = float(image_widget.texture.size[0])
         y = float(image_widget.texture.size[1])
         xchange = x/800
@@ -214,7 +213,6 @@ class Background(Widget):
             x = x / ychange
             y = y / ychange
             v = 800 - x
-            print(v)
             v = v/2
             poss = (v,0)
         else:
@@ -222,15 +220,14 @@ class Background(Widget):
             y = y / ychange
             poss = (0,0)
         fboimage_widget = Rectangle(source=name,size=(x,y),pos=(poss)) #End of rescaling image
-        maincanvas_self.canvas.add(fboimage_widget)
+        with maincanvas_self.canvas:
+            Color(rgba=(1,1,1,1))
+            maincanvas_self.canvas.add(fboimage_widget)
+            with maincanvas_self.fbo:
+                Color(rgba=(1, 1, 1, 1))
+                maincanvas_self.fbo.add(fboimage_widget)
         #maincanvas_self.add_widget(image_widget)
-        maincanvas_self.fbo.add(fboimage_widget)
-        #x = 1
-        #y = 1
-        #while x > 851:
-            #while y > 401:
-                #y = y + 1
-            #x = x + 1
+
     def on_touch_down(self, touch):  # When someone clicks down on the white canvas...
         global paint_color
         global rad
