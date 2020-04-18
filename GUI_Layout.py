@@ -36,6 +36,9 @@ rad = 50
 global radShape
 radShape = 50
 
+global shapeSize
+shapeSize = 50
+
 class MyMain(Widget):
     global paint_color
     global fbo_self
@@ -62,8 +65,8 @@ class MyMain(Widget):
         rad = self.ids.slideNum.value
 
     def sliderShape(self, slideNumShape, *args):
-        global radShape
-        radShape = self.ids.slideNumShape.value
+        global shapeSize
+        shapeSize = slideNumShape
 
     def update_button(self):
         global  paint_color
@@ -104,39 +107,29 @@ class MyMain(Widget):
         popup = Popup(title='Check if Correct', title_size=(30),
                       title_align='center', content=box,
                       size_hint=(None, None), size=(400, 400), auto_dismiss=True)
+        #btn1.bind(on_release = main_widget.drawing_canvas.canvas.clear()) # Still can't figure out how to clear
         btn2.bind(on_press = popup.dismiss)
         #btn1.bind(on_press = self.canvas.after.clear) #This will be where we will call something to clear the canvas
         popup.open()
 
 
-    def circle_draw(self, xVal, yVal, slideNum, *args):
-        global paint_color
-        with self.canvas:
-            Color(paint_color[0], paint_color[1], paint_color[2])
-            # Add a rectangle
-            Ellipse(pos=(xVal, yVal), size=(slideNum, slideNum))
-            #Line(circle=(xVal, yVal, slideNum))
+    def circle_draw(self, slideNum, *args):
+        global stencil #Lower in the document.
+        stencil = 5
+        global shapeSize
+        shapeSize = slideNum
 
-    def square_draw(self, xVal, yVal, slideNum, *args):
-        global paint_color
-        with self.canvas:
-            Color(paint_color[0], paint_color[1], paint_color[2])
-            # Add a rectangle
-            Rectangle(pos=(xVal, yVal), size=(slideNum, slideNum))
-        with maincanvas_self.fbo:# Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
-            Color(paint_color[0], paint_color[1], paint_color[2])
-            # Add a rectangle
-            Rectangle(pos=(xVal, yVal), size=(slideNum, slideNum))
-    def line_draw(self, xVal, yVal, slideNum, *args):
-        global paint_color
-        with self.canvas:
-            Color(paint_color[0], paint_color[1], paint_color[2])
-            # Add a rectangle
-            Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
-        with maincanvas_self.fbos:# Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
-            Color(paint_color[0], paint_color[1], paint_color[2])
-            # Add a rectangle
-            Rectangle(pos=(xVal, yVal), size=(slideNum*6, 5))
+    def square_draw(self, slideNum, *args):
+        global stencil
+        stencil = 6
+        global shapeSize
+        shapeSize = slideNum
+
+    def line_draw(self, slideNum, *args):
+        global stencil
+        stencil = 7
+        global shapeSize
+        shapeSize = slideNum
 
 class filePopup(BoxLayout):
     def selected(self,filename):
@@ -231,6 +224,7 @@ class Background(Widget):
     def on_touch_down(self, touch):  # When someone clicks down on the white canvas...
         global paint_color
         global rad
+        global shapeSize
         if stencil == 1: #Stencil for Pen
             self.setColor()  # This is where I call that function - when the error happens
             with self.canvas:
@@ -286,6 +280,33 @@ class Background(Widget):
                 if not self.collide_point(*touch.pos):
                     if 445 > touch.y > 5:
                         main_self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
+
+        if stencil == 5: #circle creation
+            with self.canvas:
+                Color(paint_color[0], paint_color[1], paint_color[2])
+                # Add a rectangle
+                Ellipse(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
+                # Line(circle=(xVal, yVal, slideNum))
+
+        if stencil == 6: #square creation
+            with self.canvas:
+                Color(paint_color[0], paint_color[1], paint_color[2])
+                # Add a rectangle
+                Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
+            with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+                Color(paint_color[0], paint_color[1], paint_color[2])
+                # Add a rectangle
+                Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
+
+        if stencil == 7: #line creation
+            with self.canvas:
+                Color(paint_color[0], paint_color[1], paint_color[2])
+                # Add a rectangle
+                Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
+            with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+                Color(paint_color[0], paint_color[1], paint_color[2])
+                # Add a rectangle
+                Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
 
     def on_touch_move(self, touch):
         if stencil == 4:#Stencil for moving text

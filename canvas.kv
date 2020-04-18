@@ -54,8 +54,9 @@
         size_hint: (0.2, 0.2)
 
 <MyMain>:
-
-    Background:
+    id: main_widget
+    Background: #This is the background we are drawing on
+        id: drawing_canvas
         canvas:
             Color:
                 rgb: ([1, 1, 1])
@@ -63,8 +64,6 @@
                 id: image
                 pos: self.pos
                 size: (800, 450)
-
-
 
     Test:
         background_color: (4, 4, 4, 1) #Color of tab
@@ -82,7 +81,7 @@
                 BoxLayout:
                     orientation: 'vertical'
                     pos: (-130,470)
-                    size:250,100
+                    size: (250,100)
 
                     ColorPicker:
                         id: colorpicker
@@ -332,11 +331,12 @@
                         text: 'Current Color'
                         font_size: 12
 
+                #Don't change this indentation, it breaks everything - Peter
                 Button:
                     text: ''
                     size: (23, 23)
-                    pos: (20, 505)
-                    on_press: root.circle_draw(ShapexVal.value, ShapeyVal.value, slideNumShape.value)
+                    pos: (150, 505)
+                    on_press: root.circle_draw(slideNumShape.value)
                     on_press: brush_button_image.source = 'resources/C.png'
                     Image:
                         source: 'resources/C.png'
@@ -345,8 +345,8 @@
                 Button:
                     text: ''
                     size: (23, 23)
-                    pos: (60, 505)
-                    on_press: root.square_draw(ShapexVal.value, ShapeyVal.value, slideNumShape.value)
+                    pos: (190, 505)
+                    on_press: root.square_draw(slideNumShape.value)
                     on_press: brush_button_image.source = 'resources/S.png'
                     Image:
                         source: 'resources/S.png'
@@ -356,8 +356,8 @@
                 Button:
                     text: ''
                     size: (23, 23)
-                    pos: (100, 505)
-                    on_press: root.line_draw(ShapexVal.value, ShapeyVal.value, slideNumShape.value)
+                    pos: (230, 505)
+                    on_press: root.line_draw(slideNumShape.value)
                     on_press: brush_button_image.source = 'resources/L.png'
                     Image:
                         source: 'resources/L.png'
@@ -365,47 +365,10 @@
                         center_y: self.parent.center_y
 
                 Label:
-                    pos: (23, 500)
+                    pos: (150, 500)
                     text: '[color=000000]Select a Shape[/color]'
                     markup: True
                     font_size: 16
-
-                #Position
-                Slider:
-                    id: ShapexVal
-                    min: 1
-                    max: 770
-                    value: 385
-                    pos: (170, 485)
-                    cursor_size: (20, 20)
-                    value_track_width: 1
-                    sensitivity: 'handle'
-                    step: 1
-                    orientation: 'horizontal'
-                    on_touch_move: root.slider(ShapexVal)
-
-                Label:
-                    pos: (170, 505)
-                    text: '[color=000000]X-Position[/color]'
-                    markup: True
-
-                Slider:
-                    id: ShapeyVal
-                    min: 1
-                    max: 420
-                    value: 210
-                    pos: (170, 430)
-                    cursor_size: (20, 20)
-                    value_track_width: 1
-                    sensitivity: 'handle'
-                    step: 1
-                    orientation: 'horizontal'
-                    on_touch_move: root.slider(ShapeyVal)
-
-                Label:
-                    pos: (170, 450)
-                    text: '[color=000000]Y-Position[/color]'
-                    markup: True
 
                 #Size
                 Slider:
@@ -419,13 +382,36 @@
                     sensitivity: 'handle'
                     step: 1
                     orientation: 'horizontal'
-                    on_touch_move: root.sliderShape(slideNumShape)
+                    on_touch_move: root.sliderShape(slideNumShape.value)
 
                 Label:
                     pos: (300, 480)
                     text: '[color=000000]Size:[/color]'
                     markup: True
 
+                #Saving
+                Button:
+                    text: ''
+                    size: (23, 23)
+                    pos: (120, 575)
+                    on_press:
+                        root.export_to_png('C:/Users/peter/Desktop/screenshot.png', scale = 1)
+                        print('saved screenshot to C:/Users/peter/Desktop/screenshot.png')
+                    Image:
+                        source: 'resources/save.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                #importing
+                Button:
+                    text: ''
+                    size: (23, 23)
+                    pos: (160, 572)
+                    on_press:
+                        root.filebtn()
+                    Image:
+                        source: 'resources/add_image.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
 
 
 
