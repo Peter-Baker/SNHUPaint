@@ -88,6 +88,11 @@ class MyMain(Widget):
         popupWindow = (Popup(title="File Chooser", content=show, size_hint=(None, None), size=(600, 400)))
         popupWindow.open()
 
+    def savebtn(self):
+        show = savePopup()
+        popupWindow = (Popup(title="Save Message", content=show, size_hint=(None, None), size=(280, 100)))
+        popupWindow.open()
+
     def colorbtn(self):
         show = colorPopup()
         colorpopupWindow = (Popup(title="Pick A Color", content=show, size_hint=(None, None), size=(500, 300)))
@@ -139,6 +144,8 @@ class filePopup(BoxLayout):
         Background.fileImage(self, name)
         pass
 
+class savePopup(BoxLayout):
+    pass
 
 class clearPopup(FloatLayout):
     pass
@@ -175,6 +182,9 @@ class Background(Widget):
 
     def setColor(self):  # Should reset color, but Error: kivy.properties.ListProperty object is not iterable
         self.paint = paint_color
+
+    def fillColor(self):
+        pass
 
     def fileImage(self,name):
         global firstimg
