@@ -98,6 +98,7 @@ class MyMain(Widget):
         show = savePopup()
         popupWindow = (Popup(title="Save Message", content=show, size_hint=(None, None), size=(280, 100)))
         popupWindow.open()
+        Background.saveimage(self)
 
     def colorbtn(self):
         show = colorPopup()
@@ -185,12 +186,15 @@ class Background(Widget):
         super(Background, self).__init__(**kwargs)
         with self.canvas:
             self.fbo = Fbo(size=(800, 450))
-
+        maincanvas_self.fbo.add(Rectangle(size=(800, 450), rgba=(1, 1, 1, 1)))
     def setColor(self):  # Should reset color, but Error: kivy.properties.ListProperty object is not iterable
         self.paint = paint_color
 
     def fillColor(self):
         pass
+
+    def saveimage(self):
+        maincanvas_self.fbo.texture.save(filename='D:/screenshot.png')
 
     def fileImage(self,name):
         global firstimg
@@ -199,11 +203,13 @@ class Background(Widget):
             firstimg
         except NameError:
             firstimg = False
-
         if firstimg:
             #maincanvas_self.remove_widget(image_widget)
             maincanvas_self.canvas.remove(fboimage_widget)
             maincanvas_self.fbo.remove(fboimage_widget)
+            maincanvas_self.canvas.add(Rectangle(size=(800, 450), rgba=(1, 1, 1, 1)))
+            maincanvas_self.fbo.add(Rectangle(size=(800, 450), rgba=(1, 1, 1, 1)))
+            maincanvas_self.canvas.add
         else:
             firstimg = True
 
@@ -229,12 +235,17 @@ class Background(Widget):
             y = y / ychange
             poss = (0,0)
         fboimage_widget = Rectangle(source=name,size=(x,y),pos=(poss)) #End of rescaling image
+        with maincanvas_self.fbo:
+            Color(rgba=(1, 1, 1, 1))
+            maincanvas_self.fbo.add(Rectangle(size=(800, 450), rgba=(1,1,1,1)))
+            maincanvas_self.fbo.add(fboimage_widget)
+
         with maincanvas_self.canvas:
             Color(rgba=(1,1,1,1))
+            maincanvas_self.canvas.add(Rectangle(size=(800, 450), rgba=(1, 1, 1, 1)))
             maincanvas_self.canvas.add(fboimage_widget)
-            with maincanvas_self.fbo:
-                Color(rgba=(1, 1, 1, 1))
-                maincanvas_self.fbo.add(fboimage_widget)
+
+
         #maincanvas_self.add_widget(image_widget)
 
     def on_touch_down(self, touch):  # When someone clicks down on the white canvas...
@@ -298,31 +309,38 @@ class Background(Widget):
                         main_self.ids.txt_inpt_location.pos = ((touch.x - 50), (touch.y - 50))
 
         if stencil == 5: #circle creation
-            with self.canvas:
-                Color(paint_color[0], paint_color[1], paint_color[2])
-                # Add a rectangle
-                Ellipse(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
-                # Line(circle=(xVal, yVal, slideNum))
+            if not self.collide_point(*touch.pos) and 460 > touch.y > -10:
+                with self.canvas:
+                    Color(paint_color[0], paint_color[1], paint_color[2])
+                    # Add a rectangle
+                    Ellipse(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
+                    #   Line(circle=(xVal, yVal, slideNum))
+                with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+                    Color(paint_color[0], paint_color[1], paint_color[2])
+                    # Add a rectangle
+                    Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
 
         if stencil == 6: #square creation
-            with self.canvas:
-                Color(paint_color[0], paint_color[1], paint_color[2])
-                # Add a rectangle
-                Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
-            with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
-                Color(paint_color[0], paint_color[1], paint_color[2])
-                # Add a rectangle
-                Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
+            if not self.collide_point(*touch.pos) and 460 > touch.y > -10:
+                with self.canvas:
+                    Color(paint_color[0], paint_color[1], paint_color[2])
+                    # Add a rectangle
+                    Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
+                with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+                    Color(paint_color[0], paint_color[1], paint_color[2])
+                    # Add a rectangle
+                    Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize, shapeSize))
 
         if stencil == 7: #line creation
-            with self.canvas:
-                Color(paint_color[0], paint_color[1], paint_color[2])
-                # Add a rectangle
-                Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
-            with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
-                Color(paint_color[0], paint_color[1], paint_color[2])
-                # Add a rectangle
-                Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
+            if not self.collide_point(*touch.pos) and 460 > touch.y > -10:
+                with self.canvas:
+                    Color(paint_color[0], paint_color[1], paint_color[2])
+                    # Add a rectangle
+                    Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
+                with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+                    Color(paint_color[0], paint_color[1], paint_color[2])
+                    # Add a rectangle
+                    Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
 
     def on_touch_move(self, touch):
         if stencil == 4:#Stencil for moving text
