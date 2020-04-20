@@ -82,7 +82,13 @@ class MyMain(Widget):
         global main_self
         main_self = self
         return paint_color
-
+    def color_black(self):
+        global paint_color
+        paint_color = (0,0,0,1)
+        MyMain.update_button(self)
+    def text_color(self):
+        global paint_color
+        self.ids.txt_inpt_location.color = paint_color
     def filebtn(self):
         show = filePopup()
         popupWindow = (Popup(title="File Chooser", content=show, size_hint=(None, None), size=(600, 400)))
