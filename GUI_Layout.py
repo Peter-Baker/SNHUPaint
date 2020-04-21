@@ -39,6 +39,7 @@ radShape = 50
 global shapeSize
 shapeSize = 50
 
+
 class MyMain(Widget):
     global paint_color
     global fbo_self
@@ -106,24 +107,8 @@ class MyMain(Widget):
         colorpopupWindow.open()
 
     def clearbtn(self):
-        #show = clearPopup()
-        #clearpopupWindow = Popup(title='Test popup', content=show, size_hint=(None, None), size=(400, 400))
-        #clearpopupWindow.open()
-        box = BoxLayout(orientation='vertical', padding=(10))
-        box.add_widget(Label(text="Are you sure you want to clear the project? \n Once clicked it cannot be re-done!"))
-        btn1 = Button(text = "YES TO CLEAR")
-        btn2 = Button(text = "NO TO GO BACK")
-        box.add_widget(btn1)
-        box.add_widget(btn2)
-
-        popup = Popup(title='Check if Correct', title_size=(30),
-                      title_align='center', content=box,
-                      size_hint=(None, None), size=(400, 400), auto_dismiss=True)
-        #btn1.bind(on_release = main_widget.drawing_canvas.canvas.clear()) # Still can't figure out how to clear
-        btn2.bind(on_press = popup.dismiss)
-        #btn1.bind(on_press = self.canvas.after.clear) #This will be where we will call something to clear the canvas
-        popup.open()
-
+        global stencil #clearing screen
+        stencil = 8
 
     def circle_draw(self, slideNum, *args):
         global stencil #Lower in the document.
@@ -341,6 +326,17 @@ class Background(Widget):
                     Color(paint_color[0], paint_color[1], paint_color[2])
                     # Add a rectangle
                     Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
+
+        #ASK JACOB FOR HELP
+        if stencil == 8: #clear button
+            with self.canvas:
+                Color(255, 255, 255)
+                # Add a rectangle
+                Rectangle(pos=self.pos, size=(800, 450))
+            with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+                Color(255, 255, 255)
+                # Add a rectangle
+                Rectangle(pos=self.pos, size=(800, 450))
 
     def on_touch_move(self, touch):
         if stencil == 4:#Stencil for moving text
