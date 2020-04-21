@@ -59,7 +59,9 @@ class MyMain(Widget):
         main_self = self
         global stencil
         stencil = 4
-
+    def filler(self):
+        global stencil
+        stencil = 8
     def slider(self, slideNum, *args):
         global rad
         rad = self.ids.slideNum.value
@@ -183,8 +185,6 @@ class Background(Widget):
     def setColor(self):  # Should reset color, but Error: kivy.properties.ListProperty object is not iterable
         self.paint = paint_color
 
-    def fillColor(self):
-        pass
 
     def fileImage(self,name):
         global firstimg
@@ -317,6 +317,14 @@ class Background(Widget):
                 Color(paint_color[0], paint_color[1], paint_color[2])
                 # Add a rectangle
                 Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
+
+        if stencil == 8:
+            with self.canvas:
+                Color(paint_color[0], paint_color[1], paint_color[2])
+                Rectangle(pos=(0, 0), size=(800, 470)) #paints a rectangle the size of the canvas to fill screen
+            with maincanvas_self.fbo:
+                Color(paint_color[0], paint_color[1], paint_color[2])
+                Rectangle(pos=(0, 0), size=(800, 470))
 
     def on_touch_move(self, touch):
         if stencil == 4:#Stencil for moving text
