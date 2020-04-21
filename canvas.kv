@@ -65,7 +65,7 @@
         canvas:
             Color:
                 id: back_color
-                rgb: ([1, 1, 1])
+                rgb: ([255, 255, 255])
             Rectangle:
                 id: image
                 pos: self.pos
@@ -196,7 +196,6 @@
                     size: (23, 23)
                     pos: (120, 575)
                     on_press:
-                        root.export_to_png('C:/Users/Caela/OneDrive/Pictures/screenshot.png', scale = 1)
                         root.savebtn()
                         print('saved screenshot to C:/Users/Caela/Pictures/screenshot.png')
                     Image:
@@ -246,47 +245,29 @@
                     pos: (123, 510)
                     size: (150, 30)
                     hint_text: 'Enter text'
-
-                Slider:
-                    id: TextxVal
-                    min: -50
-                    max: 750
-                    value: 300
-                    pos: (110, 415)
-                    cursor_size: (20, 20)
-                    value_track_width: 1
-                    sensitivity: 'handle'
-                    step: 1
-                    orientation: 'horizontal'
-                    on_touch_move: root.slider(TextxVal)
-
-                Label:
-                    color: (0, 0, 0, 1)
-                    text: 'x:'
-                    pos: (70, 415)
-
-                Slider:
-                    id: TextyVal
-                    min: -45
-                    max: 395
-                    value: 175
-                    pos: (195, 415)
-                    cursor_size: (20, 20)
-                    value_track_width: 1
-                    sensitivity: 'handle'
-                    step: 1
-                    orientation: 'horizontal'
-                    on_touch_move: root.slider(TextyVal)
-
-                Label:
-                    color: (0, 0, 0, 1)
-                    text: 'y:'
-                    pos: (153, 415)
-
-                Label:
+                
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (150, 470)
+                    background_color: (0, 0, 0, 1)
+                    on_press: root.color_black()
+                Button:
+                    text: ''
+                    size: (25, 25)
+                    pos: (200, 470)
+                    background_color: (1, 1, 1, 1)
+                    on_press: root.text_color()
+                    Image:
+                        size: (24, 24)
+                        source: 'resources/ColorTextButton.png'
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                
+                Label: #This is how the text appears on the screen, that is moveable
                     id: txt_inpt_location
                     color: (0, 0, 0, 1)
-                    pos: (TextxVal.value, TextyVal.value)
+                    pos: (100, 100)
                     text: txt_inpt.text
 
                 #Clear button
