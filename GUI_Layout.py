@@ -107,8 +107,7 @@ class MyMain(Widget):
         colorpopupWindow.open()
 
     def clearbtn(self):
-        global stencil #clearing screen
-        stencil = 8
+        Background.clearingCanvas(self)
 
     def circle_draw(self, slideNum, *args):
         global stencil #Lower in the document.
@@ -172,6 +171,18 @@ class Background(Widget):
         with self.canvas:
             self.fbo = Fbo(size=(800, 450))
         maincanvas_self.fbo.add(Rectangle(size=(800, 450), rgba=(1, 1, 1, 1)))
+
+    def clearingCanvas(self):
+        with maincanvas_self.canvas:
+            Color(255, 255, 255)
+            # Add a rectangle
+            Rectangle(pos=self.pos, size=(800, 450))
+        with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
+            Color(255, 255, 255)
+            # Add a rectangle
+            Rectangle(pos=self.pos, size=(800, 450))
+
+
     def setColor(self):  # Should reset color, but Error: kivy.properties.ListProperty object is not iterable
         self.paint = paint_color
 
@@ -326,17 +337,6 @@ class Background(Widget):
                     Color(paint_color[0], paint_color[1], paint_color[2])
                     # Add a rectangle
                     Rectangle(pos=(touch.x - 12, touch.y - 11), size=(shapeSize * 6, 5))
-
-        #ASK JACOB FOR HELP
-        if stencil == 8: #clear button
-            with self.canvas:
-                Color(255, 255, 255)
-                # Add a rectangle
-                Rectangle(pos=self.pos, size=(800, 450))
-            with maincanvas_self.fbo:  # Adding the maincanvas_self.fbo will allow the eye dropper to be used on it
-                Color(255, 255, 255)
-                # Add a rectangle
-                Rectangle(pos=self.pos, size=(800, 450))
 
     def on_touch_move(self, touch):
         if stencil == 4:#Stencil for moving text
