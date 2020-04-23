@@ -190,7 +190,7 @@ class Background(Widget):
 
 
     def saveimage(self):
-        maincanvas_self.fbo.texture.save(filename='D:/screenshot.png')
+        maincanvas_self.fbo.texture.save(filename='C:/Users/peter/Desktop/screenshot.png')
 
     def fileImage(self,name):
         global firstimg
