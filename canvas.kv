@@ -133,28 +133,39 @@
                 Button:
                     text: ''
                     size: (25, 25)
-                    pos: (460, 515)
+                    pos: (465, 515)
                     on_press: root.pencil()
                     on_press: brush_button_image.source = 'resources/pencil.png'
                     Image:
                         source: 'resources/pencil.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
+#                Button:
+#                    text: ''
+#                    size: (25, 25)
+#                    pos: (495, 515)
+#                    on_press:
+#                        brush_button_image.source = 'resources/bucket.png'
+#                        root.filler()
+#                    Image:
+#                        source: 'resources/bucket.png'
+#                        center_x: self.parent.center_x
+#                        center_y: self.parent.center_y
                 Button:
                     text: ''
                     size: (25, 25)
-                    pos: (495, 515)
-                    on_press:
-                        brush_button_image.source = 'resources/bucket.png'
-                        root.filler()
+                    pos: (500, 515)
+                    on_press: root.eraser()
+                    on_press: brush_button_image.source = 'resources/eraser.png'
                     Image:
-                        source: 'resources/bucket.png'
+                        source: 'resources/eraser.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
+
                 Button:
                     text: ''
                     size: (25, 25)
-                    pos: (565, 515)
+                    pos: (535, 515)
                     on_press:
                         brush_button_image.source = 'resources/dropper.png'
                         root.dropper()
@@ -162,20 +173,11 @@
                         source: 'resources/dropper.png'
                         center_x: self.parent.center_x
                         center_y: self.parent.center_y
+
                 Button:
                     text: ''
                     size: (25, 25)
-                    pos: (530, 515)
-                    on_press: root.eraser()
-                    on_press: brush_button_image.source = 'resources/eraser.png'
-                    Image:
-                        source: 'resources/eraser.png'
-                        center_x: self.parent.center_x
-                        center_y: self.parent.center_y
-                Button:
-                    text: ''
-                    size: (25, 25)
-                    pos: (600, 515)
+                    pos: (570, 515)
                     on_press:
                         brush_button_image.source = 'resources/MoveIcon.png'
                         root.text()
@@ -187,7 +189,7 @@
 
                 Label:
                     color: (0, 0, 0, 1)
-                    pos: (494, 450)
+                    pos: (480, 450)
                     text: 'Tools'
                     font_size: 12
 
